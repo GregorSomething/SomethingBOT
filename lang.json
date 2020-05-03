@@ -1,0 +1,182 @@
+{
+  "et": {
+    "announce": {
+      "name": "teata",
+      "description": "Lisab teate serveri teadete kanalisse.",
+      "use": "announce <{s6num/teade}>",
+      "perms": "Administraator",
+      "permNr": "8",
+	    "undefined": "Teadete kanal pole defineeritud, poordu administraatori poole."
+    },
+    "clear": {
+      "name": "puhasta",
+      "description": "Puhastab viimased <X> sonumit kanalist.",
+      "use": "clear <mitu sonumit kuni 150>",
+      "perms": "Kanali juhataja ja yles",
+      "permNr": "8",
+	    "title": "Puhasta kanalit",
+	    "erased": "Kustutati",
+	    "messages": "s6numit",
+	    "order": "Kasu andis:"
+    },
+    "drive": {
+      "name": "G-Drive",
+      "description": "Loeb v6i kirjutab google drive faili",
+      "use": "drive <read | mSend | work | join> <sheet | sheet, message | mida tegid>",
+      "perms": "GregorS",
+      "permNr": "9"
+    },
+    "help": {
+      "name": "abi",
+      "description": "Kaskude abi, annab teada vastavalt oigustele.",
+      "use": "help",
+      "perms": "Pole vaja",
+      "permNr": "0",
+      "cname": "Kommandide abi",
+      "version": "Versioon ",
+      "vain": "See BOT on loodud GregorS-i poolt"
+    },
+    "math": {
+      "name": "Matemaatika",
+      "description": "Kergemate operatsioonide sooritamiseks.",
+      "use": "math <a> <operatsioon (+, -, *, /)> <b>",
+      "perms": "Pole vaja",
+      "permNr": "0",
+	    "request": "Kasu tellis",
+	    "operatsion": "Operatsioon",
+	    "result": "Tulemus"
+    },
+    "prefix": {
+      "name": "eess6na",
+      "description": "Muudab eess6na.",
+      "use": "prefix {uus eess6na}",
+      "perms": "Administraator",
+      "permNr": "8"
+    },
+    "say": {
+      "name": "ytle",
+      "description": "Kirjutab sinu saadetud sonumi anonyymselt sinna kanalisse.",
+      "use": "say {s6num}",
+      "perms": "Pole vaja",
+      "permNr": "0"
+    },
+    "ticket": {
+      "name": "pilet",
+      "description": "Kasuta et lahendada enda probleem siin gildis.",
+      "use": "ticket <new | add {Kasutaja ID} | close (Haldaja kommand)>",
+      "perms": "Pole vaja",
+      "permNr": "0"
+    },
+    "userinfo": {
+      "name": "Kasutaja info",
+      "description": "Annab sinu kohta infot.",
+      "use": "userinfo",
+      "perms": "Pole vaja",
+      "permNr": "0"
+    },
+    "define": {
+      "name": "defineeri",
+      "description": "Defineeri boti asju.",
+      "use": "define <adminChat | annouceChat | lang {et/en}>",
+      "perms": "Administraator",
+      "permNr": "8"
+    },
+    "words": {
+      "description": "Kirjeldus",
+      "use": "Kasutus",
+      "perms": "Load",
+	  "noPerms": "Sul puuduvad vajalikud load",
+	  "missingArg": "Puudub vajalik argument, vaata abist"
+    }
+  },
+  "en": {
+    "announce": {
+      "name": "announce",
+      "description": "Use to announce to annoucments",
+      "use": "announce <Message on multible lines>",
+      "perms": "Administrator",
+      "permNr": "8",
+	    "undefined": "Announce chat not defined, turn to administrator for that matter."
+    },
+    "clear": {
+      "name": "clear",
+      "description": "Clears chat",
+      "use": "clear <how many messages>",
+      "perms": "Channel manager and up",
+      "permNr": "8",
+	    "title": "Clear Chat",
+	    "erased": "Erased",
+	    "messages": "messages",
+	    "order": "Order given by"
+    },
+    "drive": {
+      "name": "G-Drive",
+      "description": "Acsses sheets from discord.",
+      "use": "drive <read | mSend | work | join> <sheet | sheet, message | Whad dis you do>",
+      "perms": "GregorS",
+      "permNr": "9"
+    },
+    "help": {
+      "name": "help",
+      "description": "Currently not in use.",
+      "use": "help",
+      "perms": "None",
+      "permNr": "0",
+      "cname": "Command help",
+      "version": "Version ",
+      "vain": "This bot is made by GregorS"
+    },
+    "math": {
+      "name": "Math",
+      "description": "Calculator in discord",
+      "use": "math <a> <operatsion (+, -, /, *)> <b>",
+      "perms": "None",
+      "permNr": "0",
+	    "request": "Requested by ",
+	    "operatsion": "Operation",
+	    "result": "Result"
+    },
+    "prefix": {
+      "name": "prefix",
+      "description": "Makes new prefix for this bot for your likeing",
+      "use": "prefix <new prefix>",
+      "perms": "Administrator",
+      "permNr": "8"
+    },
+    "say": {
+      "name": "say",
+      "description": "Used to say something anonymously",
+      "use": "say <What do you have to say>",
+      "perms": "None",
+      "permNr": "0"
+    },
+    "ticket": {
+      "name": "ticket",
+      "description": "Help resolve issues",
+      "use": "ticket <new | add <mentsion user by id> | Ticeters have commnd close>",
+      "perms": "Pole vaja",
+      "permNr": "0"
+    },
+    "userinfo": {
+      "name": "userinfo",
+      "description": "Pulls the userinfo of yourself or a user!",
+      "use": "userinfo",
+      "perms": "None",
+      "permNr": "0"
+    },
+    "define": {
+      "name": "define",
+      "description": "Define bot stuff.",
+      "use": "define <adminChat | annouceChat | lang {et/en}>",
+      "perms": "Administrator",
+      "permNr": "8"
+    },
+    "words": {
+      "description": "Description",
+      "use": "Use",
+      "perms": "Perms",
+	    "noPerms": "You don´t have permissions",
+	    "missingArg": "Missing argument, chack help"
+    }
+  }	
+}
