@@ -17,7 +17,7 @@ bot.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 let lang = JSON.parse(fs.readFileSync('lang.json'));
 var language = []
-var i = 0;
+var i = 0; 
 let adminChat = [];
 let announceChat = []; 
 for(const file of commandFiles){
@@ -37,7 +37,7 @@ bot.on('ready', () =>{
 
 })
 /*
-Vaatab kas oled admin
+Vaatab kas oled admind
 if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return message.channel.send('You don´t have permissions.').then(msg => { msg.delete(10000)});
 
 */
@@ -102,21 +102,21 @@ bot.on('message', async message=>{
                     case 'adminChat':
                         adminChat[server] = message.channel.id
                         message.delete();
-                        message.channel.sendMessage('This is now where i put admin stuff').then(msg => { msg.delete(30000)});
+                        message.channel.sendMessage(useLang.define.adminChat).then(msg => { msg.delete(30000)});
                     break;
                     case 'announceChat':
                         announceChat[server] = message.channel.id
                         message.delete();
-                        message.channel.sendMessage('This is now where i put announcments').then(msg => { msg.delete(30000)});
+                        message.channel.sendMessage(useLang.define.announceChat).then(msg => { msg.delete(30000)});
                     break;
                     case 'lang':
                         if(args[2] == "en" || args[2] == "et"){
                             language[server] = args[2];
                             message.delete();
-                            message.channel.sendMessage('Language has been changed to this command with your intended language.').then(msg => { msg.delete(30000)});
+                            message.channel.sendMessage(useLang.define.lang).then(msg => { msg.delete(30000)});
                         }
                         else {
-                            message.channel.sendMessage('Language code wrong').then(msg => { msg.delete(30000)});
+                            message.channel.sendMessage(useLang.define.langErr).then(msg => { msg.delete(30000)});
                         }
                     break;
                 }

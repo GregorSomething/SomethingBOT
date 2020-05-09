@@ -1,7 +1,7 @@
 {
   "et": {
     "announce": {
-      "name": "Teata",
+      "name": "teata",
       "description": "Lisab teate serveri teadete kanalisse.",
       "use": "announce <{s6num/teade}>",
       "perms": "Administraator",
@@ -79,7 +79,11 @@
       "description": "Defineeri boti asju.",
       "use": "define <adminChat | annouceChat | lang {et/en}>",
       "perms": "Administraator",
-      "permNr": "8"
+      "permNr": "8",
+      "adminChat": "Siia ma panen Admini asjad",
+      "announceChat": "Siia kanalisse ma hakkan saatama teateid, mida sina saad saata",
+      "lang": "Keel on muudetud, et saada vana keel tagasi tehke see kask kuid asendage keele kood et-ga et saada Eesti keelne tekst.",
+      "langErr": "Sellist keele koodi pole [lang code does not exist]."
     },
     "words": {
       "description": "Kirjeldus",
@@ -169,7 +173,11 @@
       "description": "Define bot stuff.",
       "use": "define <adminChat | annouceChat | lang {et/en}>",
       "perms": "Administrator",
-      "permNr": "8"
+      "permNr": "8",
+      "adminChat": "This is now where I put admin stuff.",
+      "announceChat": "This is now where i put announcments.",
+      "lang": "Language has been changed to your chosen language. Do this command but replace language code with english code to get english text.",
+      "langErr": "Language code wrong"
     },
     "words": {
       "description": "Description",
