@@ -1,7 +1,7 @@
 {
   "et": {
     "announce": {
-      "name": "teata",
+      "name": "Teata",
       "description": "Lisab teate serveri teadete kanalisse.",
       "use": "announce <{s6num/teade}>",
       "perms": "Administraator",
