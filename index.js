@@ -1,18 +1,17 @@
 const Discord = require('discord.js')
 const {RichEmbed } = require('discord.js');
 const bot = new Discord.Client();
+const fs = require('fs');
+const login = JSON.parse(fs.readFileSync('login.json'));
 
-const token = 'Njc1NzQwNzcyNTc4MDk5MjQx.Xj_WOQ.ffmXvtaqRRvfvMxFGlcLVN9d2C8';
+const token = login.token;
 
-const deafultPREFIX = 't!';
+const deafultPREFIX = login.deafultPrefix;
 let PREFIX = [];
 
+const version = login.version;
+var activityList = login.status;
 
-
-const version = 'Alpha 1.3.6';
-var activityList = [deafultPREFIX + 'help'];
-
-const fs = require('fs');
 bot.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 let lang = JSON.parse(fs.readFileSync('lang.json'));
