@@ -64,7 +64,7 @@ bot.on('message', async message=>{
             bot.commands.get('math').execute(message, args, useLang);
             break;
             case 'say':
-            bot.commands.get('say').execute(message, args, usePrefix, adminChat, bot, server, useAdminChat);
+            bot.commands.get('say').execute(message, args, usePrefix, adminChat, bot, server, useAdminChat, useLang);
             break;
             case 'help':
             bot.commands.get('help').execute(message, args, usePrefix, version, useLang);
@@ -76,7 +76,7 @@ bot.on('message', async message=>{
             bot.commands.get('drive').execute(message, args, bot);
             break;
             case 'ticket':
-            bot.commands.get('ticket').execute(message, args, bot);
+            bot.commands.get('ticket').execute(message, args, bot, usePrefix, useLang);
             break;
 
 

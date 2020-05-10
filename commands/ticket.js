@@ -2,11 +2,11 @@ const Discord = require('discord.js')
 const {RichEmbed } = require('discord.js');
 module.exports = {
     name: 'ticket',
-    execute(message, args, bot){
+    execute(message, args, bot, usePrefix, useLang){
         switch(args[1]){
             case 'new':
                 if(!message.guild.roles.find(role => role.name === "Ticeter")){
-                    message.channel.send('Please do a role with a exsaxt name of Ticeter')
+                    message.channel.send(useLang.ticket.err1)
                     break;
                 }
                 message.guild.createChannel(`${message.member.displayName}-ticket-${message.member.id}`, { type: 'text' })
@@ -34,7 +34,7 @@ module.exports = {
                     'READ_MESSAGE_HISTORY': true
                 });
                 let time = new Date();
-                channel.send('Describe your problem, to add others to here do <prefix>ticket add <UserId (right click on that person and select copy ID)>')
+                channel.send(useLang.ticket.help)
                 channel.setTopic(`${message.member.displayName} ${IntTwoChars(time.getHours())}:${IntTwoChars(time.getMinutes())}   ${IntTwoChars(time.getDate())}/${IntTwoChars(time.getMonth() + 1)}/${IntTwoChars(time.getFullYear())}`);
                 }).catch(console.error);
             break;
@@ -52,10 +52,12 @@ module.exports = {
                 if(message.channel.parentID == message.guild.channels.find(c => c.name == "Tickets" && c.type == "category").id && message.member.roles.find(r => r.name === "Ticeter")) {
                     let creatorData = message.channel.name.split("-");
                     var creatorID = creatorData[creatorData.length - 1];
-                    bot.users.get(creatorID).send(`Your ticet on ${message.guild.name} was closed by ${message.member.displayName}, contact admins if it wasent ready for closeing.`)
+                    let reason = message.content.substring(usePrefix.length + 13)
+                    console.log(reason);
+                    bot.users.get(creatorID).send(`${useLang.ticket.messageParts[0]} ${bot.users.get(creatorID).username} ${useLang.ticket.messageParts[1]} ${message.guild.name} ${useLang.ticket.messageParts[2]} ${message.member.displayName} ${useLang.ticket.messageParts[3]} ${reason} ${useLang.ticket.messageParts[4]}`)
                     message.channel.delete();
                 }
-                else message.reply('You dont have teh perms or right channel');
+                else message.reply(useLang.ticket.err2);
             break;
         }
        

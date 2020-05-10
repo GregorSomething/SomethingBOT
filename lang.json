@@ -58,14 +58,20 @@
       "description": "Kirjutab sinu saadetud sonumi anonyymselt sinna kanalisse.",
       "use": "say {s6num}",
       "perms": "Pole vaja",
-      "permNr": "0"
+      "permNr": "0",
+      "said": "Keegi ytles anonyymselt",
+      "saidA": "ytles seda"
     },
     "ticket": {
       "name": "pilet",
       "description": "Kasuta et lahendada enda probleem siin gildis.",
       "use": "ticket <new | add {Kasutaja ID} | close (Haldaja kommand)>",
       "perms": "Pole vaja",
-      "permNr": "0"
+      "permNr": "0",
+      "messageParts": ["Lugupeetud", ",", "guildist, sinu pileti sulges", "järgneva põhjusega:", ",kui teil on probleeme selle sulegmise põhjusega siis avage uus pilet."],
+      "help": "Palun kirjeldage probleemi, et lisada asjaga seotud isikuid tehke <prefix>ticket add <kasutaja id(parem hiire klops nende peale ja saate valida sealt selle)>",
+      "err1": "Siin serveris pole loodud rolli Ticketer, palun looge selle nimelin roll.",
+      "err2": "Palun veendu et sa oled pileti kanalis ja ets sul on 6ige roll."
     },
     "userinfo": {
       "name": "Kasutaja info",
@@ -89,8 +95,9 @@
       "description": "Kirjeldus",
       "use": "Kasutus",
       "perms": "Load",
-	  "noPerms": "Sul puuduvad vajalikud load",
-	  "missingArg": "Puudub vajalik argument, vaata abist"
+	    "noPerms": "Sul puuduvad vajalikud load",
+      "missingArg": "Puudub vajalik argument, vaata abist",
+      "unErr": "Teadmata viga juhtus palun teheke käsk uuesti."
     }
   },
   "en": {
@@ -152,14 +159,20 @@
       "description": "Used to say something anonymously",
       "use": "say <What do you have to say>",
       "perms": "None",
-      "permNr": "0"
+      "permNr": "0",
+      "said": "Someone said anonymously",
+      "saidA": "said this"
     },
     "ticket": {
       "name": "ticket",
       "description": "Help resolve issues",
       "use": "ticket <new | add <mentsion user by id> | Ticeters have commnd close>",
       "perms": "Pole vaja",
-      "permNr": "0"
+      "permNr": "0",
+      "messageParts": ["Dear", "of", "guild, your ticket was closed by", "with follownin reason:", "if you have complaints for this reason please open new ticket."],
+      "help": "Describe your problem, to add others to here do <prefix>ticket add <UserId (right click on that person and select copy ID)>",
+      "err1": "Please do a role with a exsaxt name of Ticeter",
+      "err2": "You dont have the perms or right channel"
     },
     "userinfo": {
       "name": "userinfo",
@@ -184,7 +197,8 @@
       "use": "Use",
       "perms": "Perms",
 	    "noPerms": "You don´t have permissions",
-	    "missingArg": "Missing argument, chack help"
+      "missingArg": "Missing argument, chack help",
+      "unErr": "Unknown errtor happend please do this command again."
     }
   }	
 }
