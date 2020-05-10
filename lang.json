@@ -65,7 +65,7 @@
     "ticket": {
       "name": "pilet",
       "description": "Kasuta et lahendada enda probleem siin gildis.",
-      "use": "ticket <new | add {Kasutaja ID} | close (Haldaja kommand)>",
+      "use": "ticket <new | add {Kasutaja ID} | close (Haldaja kommand) + [p6hjus]>",
       "perms": "Pole vaja",
       "permNr": "0",
       "messageParts": ["Lugupeetud", ",", "guildist, sinu pileti sulges", "järgneva põhjusega:", ",kui teil on probleeme selle sulegmise põhjusega siis avage uus pilet."],
@@ -166,7 +166,7 @@
     "ticket": {
       "name": "ticket",
       "description": "Help resolve issues",
-      "use": "ticket <new | add <mentsion user by id> | Ticeters have commnd close>",
+      "use": "ticket <new | add <mentsion user by id> | Ticeters have commnd close + [reason]>",
       "perms": "Pole vaja",
       "permNr": "0",
       "messageParts": ["Dear", "of", "guild, your ticket was closed by", "with follownin reason:", "if you have complaints for this reason please open new ticket."],
