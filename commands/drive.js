@@ -9,7 +9,7 @@ const doc = new GoogleSpreadsheet('12yRwnWMvRh3__GBBcoKrQvTgsibJHQv07cklFbDzuy8'
 var leht = 0;
 module.exports = {
     name: 'drive',
-    execute(message, args, bot){
+    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
     async function getInfoFromGSheets(leht, message, koht, bot){
         await doc.useServiceAccountAuth(require('./securiti_key.json'));
         await doc.loadInfo();

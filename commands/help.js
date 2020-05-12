@@ -5,7 +5,7 @@ const GregorS = 238965446026592257;
 var commands = ["announce", "clear", "drive", "help", "math", "prefix", "say", "ticket", "userinfo", "define"]; // Useble commands
 module.exports = {
     name: 'help',
-    execute(message, args, usePrefix, version, useLang){
+    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
         const helpEmbed = new RichEmbed();
         helpEmbed.setTitle(useLang.help.cname)
         .setColor(0xFF0000)

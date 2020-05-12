@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const {RichEmbed } = require('discord.js');
 module.exports = {
     name: 'say',
-    execute(message, args, usePrefix, adminChat, bot, server, useAdminChat, useLang){
+    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
         const embed = new RichEmbed()
         .setTitle(useLang.say.said)
         .setColor(0xFF0000);

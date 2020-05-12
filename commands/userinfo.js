@@ -4,7 +4,7 @@ const bot = new Discord.Client();
 
 module.exports = {
     name: "userinfo",
-    execute(message, args){
+    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
     let uEmbed = new Discord.RichEmbed()
     .setColor(0xFF0000)
     .setTitle("Server Info")

@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const {RichEmbed} = require('discord.js');
 module.exports = {
     name: 'clear',
-    async execute(message, args, useLang){
+    async execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
         if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return message.channel.send(useLang.words.noPerms).then(msg => { msg.delete(10000)});
         if(!args[1]) return message.channel.sendMessage(useLang.words.missingArg)
         message.channel.bulkDelete(args[1]);

@@ -19,9 +19,11 @@ var language = []
 var i = 0;
 let adminChat = [];
 let announceChat = []; 
+let working = [];
 for(const file of commandFiles){
     const command = require(`./commands/${file}`);
     bot.commands.set(command.name, command);
+    working.push(command.name);
 }
 
 bot.on('ready', () =>{
@@ -53,73 +55,46 @@ bot.on('message', async message=>{
     let args = message.content.substring(usePrefix.length).split(" ");
     let start = message.content.substring(0, usePrefix.length);
     if(start == usePrefix) {
-        switch(args[0]){
-            case 'userinfo':
-            bot.commands.get('userinfo').execute(message, args);
-            break;
-            case 'clear':
-            bot.commands.get('clear').execute(message, args, useLang);
-            break;
-            case 'math':
-            bot.commands.get('math').execute(message, args, useLang);
-            break;
-            case 'say':
-            bot.commands.get('say').execute(message, args, usePrefix, adminChat, bot, server, useAdminChat, useLang);
-            break;
-            case 'help':
-            bot.commands.get('help').execute(message, args, usePrefix, version, useLang);
-            break;
-            case 'announce':
-            bot.commands.get('announce').execute(message, args, usePrefix, bot, useAnnounceChat, useLang);
-            break;
-            case 'drive':
-            bot.commands.get('drive').execute(message, args, bot);
-            break;
-            case 'ticket':
-            bot.commands.get('ticket').execute(message, args, bot, usePrefix, useLang);
-            break;
-
-
-
-
-
-
-
-            
-            case 'prefix':
-                if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return message.channel.send('You don´t have permissions.').then(msg => { msg.delete(10000)});
-                if(!args[1]) return message.channel.sendMessage('Missing argument').then(msg => { msg.delete(10000)});
-                PREFIX[server] = args[1];
-                message.channel.sendMessage('New prefix is **' + PREFIX[server] + '** by ' + message.member.displayName)
-                console.log('New prefix is ' + PREFIX[server]);
-                message.delete();
-            break;
-            case 'define':
-                if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return message.channel.send('You don´t have permissions.').then(msg => { msg.delete(10000)});
-                if(!args[1]) return message.channel.sendMessage('Missing argument').then(msg => { msg.delete(10000)});
-                switch (args[1]){
-                    case 'adminChat':
-                        adminChat[server] = message.channel.id
-                        message.delete();
-                        message.channel.sendMessage('This is now where i put admin stuff').then(msg => { msg.delete(30000)});
-                    break;
-                    case 'announceChat':
-                        announceChat[server] = message.channel.id
-                        message.delete();
-                        message.channel.sendMessage('This is now where i put announcments').then(msg => { msg.delete(30000)});
-                    break;
-                    case 'lang':
-                        if(args[2] == "en" || args[2] == "et"){
-                            language[server] = args[2];
+        if(working.includes(args[0])){
+            bot.commands.get(args[0]).execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version);
+        }
+        else{
+            switch(args[0]){
+                case 'prefix':
+                    if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return message.channel.send('You don´t have permissions.').then(msg => { msg.delete(10000)});
+                    if(!args[1]) return message.channel.sendMessage('Missing argument').then(msg => { msg.delete(10000)});
+                    PREFIX[server] = args[1];
+                    message.channel.sendMessage('New prefix is **' + PREFIX[server] + '** by ' + message.member.displayName)
+                    console.log('New prefix is ' + PREFIX[server]);
+                    message.delete();
+                break;
+                case 'define':
+                    if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return message.channel.send('You don´t have permissions.').then(msg => { msg.delete(10000)});
+                    if(!args[1]) return message.channel.sendMessage('Missing argument').then(msg => { msg.delete(10000)});
+                    switch (args[1]){
+                        case 'adminChat':
+                            adminChat[server] = message.channel.id
                             message.delete();
-                            message.channel.sendMessage('Language has been changed to this command with your intended language.').then(msg => { msg.delete(30000)});
-                        }
-                        else {
-                            message.channel.sendMessage('Language code wrong').then(msg => { msg.delete(30000)});
-                        }
-                    break;
-                }
-            break;
+                            message.channel.sendMessage('This is now where i put admin stuff').then(msg => { msg.delete(30000)});
+                        break;
+                        case 'announceChat':
+                            announceChat[server] = message.channel.id
+                            message.delete();
+                            message.channel.sendMessage('This is now where i put announcments').then(msg => { msg.delete(30000)});
+                        break;
+                        case 'lang':
+                            if(args[2] == "en" || args[2] == "et"){
+                                language[server] = args[2];
+                                message.delete();
+                                message.channel.sendMessage('Language has been changed to this command with your intended language.').then(msg => { msg.delete(30000)});
+                            }
+                            else {
+                                message.channel.sendMessage('Language code wrong').then(msg => { msg.delete(30000)});
+                            }
+                        break;
+                    }
+                break;
+            }
         }
     }    
 })

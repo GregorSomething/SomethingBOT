@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const {RichEmbed } = require('discord.js');
 module.exports = {
     name: 'ticket',
-    execute(message, args, bot, usePrefix, useLang){
+    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
         switch(args[1]){
             case 'new':
                 if(!message.guild.roles.find(role => role.name === "Ticeter")){
