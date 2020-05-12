@@ -2,18 +2,18 @@ const Discord = require('discord.js')
 const {RichEmbed } = require('discord.js');
 const bot = new Discord.Client();
 const fs = require('fs');
-const login = JSON.parse(fs.readFileSync('login.json'));
+let login = JSON.parse(fs.readFileSync('login.json'));
 
 const token = login.token;
 
-const deafultPREFIX = login.deafultPrefix;
+let deafultPREFIX = login.deafultPrefix;
 let PREFIX = [];
 
-const version = login.version;
-var activityList = login.status;
+let version = login.version;
+let activityList = login.status;
 
 bot.commands = new Discord.Collection();
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+let commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 let lang = JSON.parse(fs.readFileSync('lang.json'));
 var language = []
 var i = 0;
@@ -21,7 +21,7 @@ let adminChat = [];
 let announceChat = []; 
 let working = [];
 for(const file of commandFiles){
-    const command = require(`./commands/${file}`);
+    let command = require(`./commands/${file}`);
     bot.commands.set(command.name, command);
     working.push(command.name);
 }
@@ -93,6 +93,23 @@ bot.on('message', async message=>{
                             }
                         break;
                     }
+                break;
+                case 'update':
+                    if(message.member.id != 238965446026592257) break;
+                    login = JSON.parse(fs.readFileSync('login.json'));
+                    lang = JSON.parse(fs.readFileSync('lang.json'));
+                    message.channel.send(`Bot update in progress from ${version} to ${login.version}`);
+                    deafultPREFIX = login.deafultPrefix;
+                    version = login.version;
+                    activityList = login.status;
+                    commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+                    for(const file of commandFiles){
+                        let command = require(`./commands/${file}`);
+                        bot.commands.set(command.name, command);
+                        working.push(command.name);
+                        message.channel.send(`Loaded command files for ${command.name.toUpperCase()}`);
+                    }
+                    message.channel.send(`Sucsesfully updated to version ${version}! Have a nice day GregorS`);
                 break;
             }
         }
