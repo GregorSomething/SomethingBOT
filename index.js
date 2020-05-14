@@ -96,9 +96,11 @@ bot.on('message', async message=>{
                 break;
                 case 'update':
                     if(message.member.id != 238965446026592257) break;
+                    console.log(`[Uptade][Live]##################`)
                     login = JSON.parse(fs.readFileSync('login.json'));
                     lang = JSON.parse(fs.readFileSync('lang.json'));
                     message.channel.send(`Bot update in progress from ${version} to ${login.version}`);
+                    console.log(`Bot update in progress from ${version} to ${login.version}`);
                     deafultPREFIX = login.deafultPrefix;
                     version = login.version;
                     activityList = login.status;
@@ -108,8 +110,10 @@ bot.on('message', async message=>{
                         bot.commands.set(command.name, command);
                         working.push(command.name);
                         message.channel.send(`Loaded command files for ${command.name.toUpperCase()}`);
+                        console.log(`Loaded command files for ${command.name.toUpperCase()}`);
                     }
                     message.channel.send(`Sucsesfully updated to version ${version}! Have a nice day GregorS`);
+                    console.log(`Sucsesfully updated to version ${version}! Have a nice day GregorS`);
                 break;
             }
         }
