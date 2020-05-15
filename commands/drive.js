@@ -7,6 +7,7 @@ const { GoogleSpreadsheet } = require('google-spreadsheet');
 const doc = new GoogleSpreadsheet('12yRwnWMvRh3__GBBcoKrQvTgsibJHQv07cklFbDzuy8');
 // Gets data from Google Sheets
 var leht = 0;
+var loetud = '';
 module.exports = {
     name: 'drive',
     execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
@@ -21,12 +22,16 @@ module.exports = {
         bot.channels.get(koht.id).sendMessage(`**### Reading sheet nr ${leht} ###**`).then(msg => { msg.delete(600000)});
         rows.forEach(row => {
             //Muuda sadetavad ara
+            if (loetud.length >= 1750){
+                bot.channels.get(koht.id).sendMessage(loetud).then(msg => { msg.delete(600000)});
+                loetud = '';
+            }
             switch (leht){
                 case '0':
-                    bot.channels.get(koht.id).sendMessage(`User ID: ${row.User_Id}, Did: ${row.Do_What}, Object: ${row.Item}, Value: ${row.Value}`).then(msg => { msg.delete(600000)});
+                    loetud = loetud + `User ID: ${row.User_Id}, Did: ${row.Do_What}, Object: ${row.Item}, Value: ${row.Value}\n`;
                 break;
                 case '1':
-                    bot.channels.get(koht.id).sendMessage(`User Name: ${row.Name}, Time and Date: ${row.Time} ${row.Date}, Went: ${row.Went}`).then(msg => { msg.delete(600000)});
+                    loetud = loetud + `User Name: ${row.Name}, Time and Date: ${row.Time} ${row.Date}, Went: ${row.Went}\n`;
                 break;
             }
         });
@@ -53,6 +58,7 @@ function IntTwoChars(i) {
 
 
     const kanal = message.guild.channels.find(channel => channel.name === "sheets");
+    if(message.member.id != 238965446026592257) return;
         switch(args[1]){
             case 'read':
                 if (!kanal) return message.channel.send(`Do [prefix]drive join , it will create needed channels.`);
