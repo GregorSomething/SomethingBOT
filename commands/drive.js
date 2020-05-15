@@ -58,6 +58,7 @@ function IntTwoChars(i) {
 
 
     const kanal = message.guild.channels.find(channel => channel.name === "sheets");
+    if(message.member.id != 238965446026592257) return;
         switch(args[1]){
             case 'read':
                 if (!kanal) return message.channel.send(`Do [prefix]drive join , it will create needed channels.`);

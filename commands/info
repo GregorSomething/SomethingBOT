@@ -2,11 +2,7 @@ const Discord = require('discord.js')
 const {RichEmbed } = require('discord.js');
 module.exports = {
     name: 'sample',
-    description: "Currently not in use.",
-    use: "sample",
-    perms: "None",
-    permNr: "0",
-    execute(message, args){
+    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
         
        //Code here
        message.delete();
