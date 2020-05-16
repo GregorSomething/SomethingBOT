@@ -1,6 +1,7 @@
 const Discord = require('discord.js')
 const {RichEmbed } = require('discord.js');
 const bot = new Discord.Client();
+var cmd = require('node-cmd');
 const fs = require('fs');
 let login = JSON.parse(fs.readFileSync('login.json'));
 
@@ -96,24 +97,46 @@ bot.on('message', async message=>{
                 break;
                 case 'update':
                     if(message.member.id != 238965446026592257) break;
-                    console.log(`[Uptade][Live]##################`)
-                    login = JSON.parse(fs.readFileSync('login.json'));
-                    lang = JSON.parse(fs.readFileSync('lang.json'));
-                    message.channel.send(`Bot update in progress from ${version} to ${login.version}`);
-                    console.log(`Bot update in progress from ${version} to ${login.version}`);
-                    deafultPREFIX = login.deafultPrefix;
-                    version = login.version;
-                    activityList = login.status;
-                    commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-                    for(const file of commandFiles){
-                        let command = require(`./commands/${file}`);
-                        bot.commands.set(command.name, command);
-                        working.push(command.name);
-                        message.channel.send(`Loaded command files for ${command.name.toUpperCase()}`);
-                        console.log(`Loaded command files for ${command.name.toUpperCase()}`);
+                    switch(args[1]){
+                        case 'reload':
+                            console.log(`[Uptade][Live]##################`)
+                            login = JSON.parse(fs.readFileSync('login.json'));
+                            lang = JSON.parse(fs.readFileSync('lang.json'));
+                            message.channel.send(`Bot update in progress from ${version} to ${login.version}`);
+                            console.log(`Bot update in progress from ${version} to ${login.version}`);
+                            deafultPREFIX = login.deafultPrefix;
+                            version = login.version;
+                            activityList = login.status;
+                            commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+                            for(const file of commandFiles){
+                                let command = require(`./commands/${file}`);
+                                bot.commands.set(command.name, command);
+                                working.push(command.name);
+                                message.channel.send(`Loaded command files for ${command.name.toUpperCase()}`);
+                                console.log(`Loaded command files for ${command.name.toUpperCase()}`);
+                            }
+                            message.channel.send(`Sucsesfully updated to version ${version}! Have a nice day GregorS`);
+                            console.log(`Sucsesfully updated to version ${version}! Have a nice day GregorS`);
+                        break;
+                        case 'pull':
+                            cmd.get(
+                                'git pull origin Stabile',
+                                function(err, data, stderr){
+                                    console.log('Git pull:\n\n',data);
+                                    message.channel.send(`Git returned:\n\n ${data}\n Sucsessfull :white_check_mark:`);
+                                }
+                            );
+                        break;
+                        case 'restart':
+                            message.reply(`Now started to restart`)
+                            cmd.get('start cmd /k node .', function(err, data, stderr){});
+                            console.log(`Headaega!`);
+                            setTimeout(function(){
+                                message.channel.send(`Opend and closing old`);
+                                process.exit(1);
+                            }, 3000);  
+                        break;
                     }
-                    message.channel.send(`Sucsesfully updated to version ${version}! Have a nice day GregorS`);
-                    console.log(`Sucsesfully updated to version ${version}! Have a nice day GregorS`);
                 break;
             }
         }
