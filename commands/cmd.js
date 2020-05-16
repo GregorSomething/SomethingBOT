@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 const {RichEmbed } = require('discord.js');
-var cmd=require('node-cmd');
+var cmd = require('node-cmd');
 module.exports = {
     name: 'cmd',
     execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
@@ -11,17 +11,7 @@ module.exports = {
                     const kanal = message.guild.channels.find(channel => channel.name === "minecrafti-chat");
                     bot.channels.get(kanal.id).send(`:hourglass_flowing_sand: Serveri start anti kolmandast isikust, oodakke kuni server käivitub.`);
                 }
-                cmd.get(
-                    'cd C:/Users/Gregor/Desktop/UusMinecraft & start.bat',
-                    function(err, data, stderr){
-                        if (!err) {
-                           console.log('i did it:\n\n',data)
-                        } else {
-                           console.log('error', err)
-                        }
-             
-                    }
-                );
+                cmd.run('cd C:/Users/Gregor/Desktop/UusMinecraft & start.bat');
                 
             break;
         }
@@ -31,7 +21,6 @@ module.exports = {
         
         
         
-       //Code here
-       message.delete();
+    message.delete();
     }
 }
