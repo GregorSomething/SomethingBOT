@@ -15,25 +15,22 @@ module.exports = {
         await doc.useServiceAccountAuth(require('./securiti_key.json'));
         await doc.loadInfo();
         //defineerib lehe
-        const sheet = doc.sheetsByIndex[leht];
+        const sheet = await doc.sheetsByIndex[leht];
         const rows = await sheet.getRows({
             offset: 0
         });
         bot.channels.get(koht.id).sendMessage(`**### Reading sheet nr ${leht} ###**`).then(msg => { msg.delete(600000)});
+        loetud = `**THINGS:** ${sheet.headerValues} \n`
         rows.forEach(row => {
             //Muuda sadetavad ara
             if (loetud.length >= 1750){
                 bot.channels.get(koht.id).sendMessage(loetud).then(msg => { msg.delete(600000)});
                 loetud = '';
             }
-            switch (leht){
-                case '0':
-                    loetud = loetud + `User ID: ${row.User_Id}, Did: ${row.Do_What}, Object: ${row.Item}, Value: ${row.Value}\n`;
-                break;
-                case '1':
-                    loetud = loetud + `User Name: ${row.Name}, Time and Date: ${row.Time} ${row.Date}, Went: ${row.Went}\n`;
-                break;
+            for(i = 0; i <= await sheet.headerValues.length -1; i++){
+                loetud = loetud + `${row[await sheet.headerValues[i]]}; `;
             }
+            loetud = loetud + `${row[await sheet.headerValues[await sheet.headerValues.length-2]]};\n`;
         });
         bot.channels.get(koht.id).sendMessage(`**### Orderd by ${message.member.displayName} ###**`).then(msg => { msg.delete(600000)});
     }
