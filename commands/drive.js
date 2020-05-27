@@ -15,24 +15,25 @@ module.exports = {
         await doc.useServiceAccountAuth(require('./securiti_key.json'));
         await doc.loadInfo();
         //defineerib lehe
-        const sheet = await doc.sheetsByIndex[leht];
-        const rows = await sheet.getRows({
+        let sheet = doc.sheetsByIndex[leht];
+        let rows = await sheet.getRows({
             offset: 0
         });
-        bot.channels.get(koht.id).sendMessage(`**### Reading sheet nr ${leht} ###**`).then(msg => { msg.delete(600000)});
-        loetud = `**THINGS:** ${sheet.headerValues} \n`
+        loetud = `**### Reading sheet nr ${leht} ###**\n`;
+        loetud = loetud + `**THINGS:** ${sheet.headerValues} \n`
         rows.forEach(row => {
             //Muuda sadetavad ara
             if (loetud.length >= 1750){
-                bot.channels.get(koht.id).sendMessage(loetud).then(msg => { msg.delete(600000)});
+                bot.channels.get(koht.id).send(loetud).then(msg => { msg.delete(600000)});
                 loetud = '';
             }
-            for(i = 0; i <= await sheet.headerValues.length -1; i++){
-                loetud = loetud + `${row[await sheet.headerValues[i]]}; `;
+            for(i = 0; i <=sheet.headerValues.length -1; i++){
+                loetud = loetud + `${remUndefined(row[sheet.headerValues[i]], '-n-')}; `;
             }
-            loetud = loetud + `${row[await sheet.headerValues[await sheet.headerValues.length-2]]};\n`;
+            loetud = loetud + `${remUndefined(row[sheet.headerValues[sheet.headerValues.length-2]], '-n-')};\n`;
         });
-        bot.channels.get(koht.id).sendMessage(`**### Orderd by ${message.member.displayName} ###**`).then(msg => { msg.delete(600000)});
+        bot.channels.get(koht.id).send(loetud).then(msg => { msg.delete(600000)});
+        bot.channels.get(koht.id).send(`**### Orderd by ${message.member.displayName} ###**`).then(msg => { msg.delete(600000)});
     }
 
 
@@ -51,6 +52,14 @@ module.exports = {
 function IntTwoChars(i) {
     return (`0${i}`).slice(-2);
     }
+function remUndefined(i, j) {
+    if (i === undefined){
+        return j;
+    }
+    else {
+        return i;
+    }
+}
 
 
 
