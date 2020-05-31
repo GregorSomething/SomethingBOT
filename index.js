@@ -44,7 +44,8 @@ if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return messa
 
 */
 bot.on('message', async message=>{
-
+    if(message.author.bot) return;
+    if(message.channel.type == 'dm') return message.reply('For my current operations please use me in a guild.');
     var server = message.guild.id;
     var usePrefix = remUndefined(PREFIX[server], deafultPREFIX);
     var useAdminChat = remUndefined(adminChat[server], 0);
