@@ -46,13 +46,10 @@ if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return messa
 bot.on('message', async message=>{
 
     var server = message.guild.id;
-    if (PREFIX[server] === undefined) PREFIX[server] = deafultPREFIX;
-    if (adminChat[server] === undefined) adminChat[server] = 0;
-    if (language[server] === undefined) language[server] = "en";
-    var useAnnounceChat = announceChat[server];
-    var useAdminChat = adminChat[server];
-    var usePrefix = PREFIX[server];
-    let useLang = lang[language[server]];
+    var usePrefix = remUndefined(PREFIX[server], deafultPREFIX);
+    var useAdminChat = remUndefined(adminChat[server], 0);
+    var useAnnounceChat = remUndefined(announceChat[server], 0);
+    let useLang = remUndefined(lang[language[server]], lang.en);
     let args = message.content.substring(usePrefix.length).split(" ");
     let start = message.content.substring(0, usePrefix.length);
     if(start == usePrefix) {
@@ -143,3 +140,13 @@ bot.on('message', async message=>{
     }    
 })
 bot.login(token);
+
+//Functons in Index.js
+function remUndefined(isUndefined, replace) {
+    if (isUndefined === undefined){
+        return replace;
+    }
+    else {
+        return isUndefined;
+    }
+}
