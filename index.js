@@ -1,32 +1,36 @@
+// @author: Gregor Suurvarik
+// Dependencies
 const Discord = require('discord.js')
 const {RichEmbed } = require('discord.js');
-const bot = new Discord.Client();
 var cmd = require('node-cmd');
 const fs = require('fs');
+// Json file redins
 let login = JSON.parse(fs.readFileSync('login.json'));
-
-const token = login.token;
-
-let deafultPREFIX = login.deafultPrefix;
-let PREFIX = [];
-
-let version = login.version;
-let activityList = login.status;
-
-bot.commands = new Discord.Collection();
 let commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 let lang = JSON.parse(fs.readFileSync('lang.json'));
-var language = []
+// var varibles
+var language = [];
 var i = 0;
+// let varibles
 let adminChat = [];
 let announceChat = []; 
 let working = [];
+let PREFIX = [];
+// Shortenings
+let version = login.version;
+let activityList = login.status;
+let deafultPREFIX = login.deafultPrefix;
+const token = login.token;
+// Start
+const bot = new Discord.Client(); // client = bot e. see on discordi bot
+// Command handler stuff
+bot.commands = new Discord.Collection();
 for(const file of commandFiles){
     let command = require(`./commands/${file}`);
     bot.commands.set(command.name, command);
     working.push(command.name);
 }
-
+//Redy listnerer
 bot.on('ready', () =>{
     console.log(`Ready For something? of course not, here comes an ERROR!!!`);
     setInterval(function() {
@@ -34,7 +38,6 @@ bot.on('ready', () =>{
         else { i = 0;}
         let status = activityList[i];
         bot.user.setActivity(status, {type: "WATCHING"});
-
     }, 5000)
 
 })
@@ -43,6 +46,7 @@ Vaatab kas oled admin
 if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return message.channel.send('You don´t have permissions.').then(msg => { msg.delete(10000)});
 
 */
+// message handler
 bot.on('message', async message=>{
     if(message.author.bot) return;
     if(message.channel.type == 'dm') return message.reply('For my current operations please use me in a guild.');
@@ -136,11 +140,18 @@ bot.on('message', async message=>{
                         break;
                     }
                 break;
+                default:
+                    message.reply(useLang.words.noCommand);
+                break;
             }
         }
     }    
 })
-bot.login(token);
+//other eventes
+bot.on('messageDelete', message => {
+    bot.commands.get('event_messageDelete').execute(message);
+})
+bot.login(token); //onli thing ot of loop, that starts everithingl
 
 //Functons in Index.js
 function remUndefined(isUndefined, replace) {

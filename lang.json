@@ -104,7 +104,8 @@
       "perms": "Load",
 	    "noPerms": "Sul puuduvad vajalikud load",
       "missingArg": "Puudub vajalik argument, vaata abist",
-      "unErr": "Teadmata viga juhtus palun teheke käsk uuesti."
+      "unErr": "Teadmata viga juhtus palun teheke käsk uuesti.",
+      "noCommand":"kahju kuid sellist käsku pole, palun veendu et sa kirjutasid selle õigesti."
     }
   },
   "en": {
@@ -212,7 +213,8 @@
       "perms": "Perms",
 	    "noPerms": "You don´t have permissions",
       "missingArg": "Missing argument, chack help",
-      "unErr": "Unknown errtor happend please do this command again."
+      "unErr": "Unknown errtor happend please do this command again.",
+      "noCommand":"unfortunetly there is not such command that you tryed to use, please vive help, if needed."
     }
   }	
 }
