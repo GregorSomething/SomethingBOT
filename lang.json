@@ -68,7 +68,7 @@
       "use": "ticket <new | add {Kasutaja ID} | close (Haldaja kommand) + [p6hjus]>",
       "perms": "Pole vaja",
       "permNr": "0",
-      "messageParts": ["Lugupeetud", ",", "guildist, sinu pileti sulges", "järgneva põhjusega:", ",kui teil on probleeme selle sulegmise põhjusega siis avage uus pilet."],
+      "closeMessage": "Lugupeetud #creator#, #guild# guildist, sinu pileti sulges #ticeter# järgneva põhjusega: #reason# ,kui teil on probleeme selle sulegmise põhjusega siis avage uus pilet.",
       "help": "Palun kirjeldage probleemi, et lisada asjaga seotud isikuid tehke <prefix>ticket add <kasutaja id(parem hiire klops nende peale ja saate valida sealt selle)>",
       "err1": "Siin serveris pole loodud rolli Ticketer, palun looge selle nimelin roll.",
       "err2": "Palun veendu et sa oled pileti kanalis ja ets sul on 6ige roll."
@@ -177,7 +177,7 @@
       "use": "ticket <new | add <mentsion user by id> | Ticeters have commnd close + [reason]>",
       "perms": "Pole vaja",
       "permNr": "0",
-      "messageParts": ["Dear", "of", "guild, your ticket was closed by", "with follownin reason:", "if you have complaints for this reason please open new ticket."],
+      "closeMessage": "Dear #creator# from #guild# guild, your ticket was closed by #ticeter# with flollowing reason: #reason# ,if you have any issues with the closure of the ticket then pease open new ticket.",
       "help": "Describe your problem, to add others to here do <prefix>ticket add <UserId (right click on that person and select copy ID)>",
       "err1": "Please do a role with a exsaxt name of Ticeter",
       "err2": "You dont have the perms or right channel"

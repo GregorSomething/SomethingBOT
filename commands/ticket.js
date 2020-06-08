@@ -53,8 +53,12 @@ module.exports = {
                     let creatorData = message.channel.name.split("-");
                     var creatorID = creatorData[creatorData.length - 1];
                     let reason = message.content.substring(usePrefix.length + 13)
-                    console.log(reason);
-                    bot.users.get(creatorID).send(`${useLang.ticket.messageParts[0]} ${bot.users.get(creatorID).username} ${useLang.ticket.messageParts[1]} ${message.guild.name} ${useLang.ticket.messageParts[2]} ${message.member.displayName} ${useLang.ticket.messageParts[3]} ${reason} ${useLang.ticket.messageParts[4]}`)
+                    console.log(useLang.ticket.closeMessage)
+                    var textToDM = useLang.ticket.closeMessage.replace('#creator#', bot.users.get(creatorID).username)
+                    .replace('#guild#', message.guild.name)
+                    .replace('#ticeter#', message.member.displayName)
+                    .replace('#reason#', reason);
+                    bot.users.get(creatorID).send(textToDM)
                     message.channel.delete();
                 }
                 else message.reply(useLang.ticket.err2);
