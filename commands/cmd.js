@@ -11,7 +11,7 @@ module.exports = {
                     const kanal = message.guild.channels.find(channel => channel.name === "minecrafti-chat");
                     bot.channels.get(kanal.id).send(`:hourglass_flowing_sand: Serveri start anti kolmandast isikust, oodakke kuni server käivitub.`);
                 }
-                cmd.run('cd C:/Users/Gregor/Desktop/UusMinecraft & start.bat');
+                cmd.run('start cmd /k cd C:/Users/Gregor/Desktop/UusMinecraft & start.bat');
                 
             break;
         }

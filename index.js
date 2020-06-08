@@ -141,15 +141,16 @@ bot.on('message', async message=>{
                     }
                 break;
                 default:
-                    message.reply(useLang.words.noCommand);
+                    message.reply(useLang.words.noCommand).then(msg => { msg.delete(10000)});
+                    message.delete();
                 break;
             }
         }
     }    
 })
 //other eventes
-bot.on('messageDelete', message => {
-    bot.commands.get('event_messageDelete').execute(message);
+bot.on('messageDelete', async message => {
+    bot.commands.get('event_messageDelete').execute(message, remUndefined(PREFIX[message.guild.id], deafultPREFIX));
 })
 bot.login(token); //onli thing ot of loop, that starts everithingl
 
