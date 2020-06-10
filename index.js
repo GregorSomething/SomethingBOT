@@ -151,12 +151,16 @@ bot.on('message', async message=>{
 //other eventes
 bot.on('messageDelete', async message => {
     bot.commands.get('event_messageDelete').execute(message, remUndefined(PREFIX[message.guild.id], deafultPREFIX));
-})
+});
+bot.on('messageUpdate', async (oldMessage, newMessage) => {
+    bot.commands.get('event_messageUpdate').execute(oldMessage, newMessage);
+});
+
 bot.login(token); //onli thing ot of loop, that starts everithingl
 
 //Functons in Index.js
 function remUndefined(isUndefined, replace) {
-    if (isUndefined === undefined){
+    if (isUndefined === undefined || isUndefined === null){
         return replace;
     }
     else {
