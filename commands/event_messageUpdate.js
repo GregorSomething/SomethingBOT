@@ -1,8 +1,7 @@
-const Discord = require('discord.js')
-const {RichEmbed } = require('discord.js');
 module.exports = {
     name: 'event_messageUpdate',
     execute(oldMessage, newMessage){
+        if (oldMessage.author.bot) return;
         var content = `**MESSAGE EDITED**\n**New Content: **${newMessage.content}\n**Edited at** ${dateFormat(newMessage.editedAt)}\n**Old content:** ${oldMessage.content}\n**Created at (or edited)** ${dateFormat(remUndefined(oldMessage.editedTimestamp, oldMessage.createdAt))}\n**Author: **<@${newMessage.member.id}>\nhttps://discordapp.com/channels/${newMessage.guild.id}/${newMessage.channel.id}/${newMessage.id}`
         newMessage.channel.send(content);
     }

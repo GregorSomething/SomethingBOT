@@ -10,7 +10,7 @@ var leht = 0;
 var loetud = '';
 module.exports = {
     name: 'drive',
-    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
+    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version, fs){
     async function getInfoFromGSheets(leht, message, koht, bot){
         await doc.useServiceAccountAuth(require('./securiti_key.json'));
         await doc.loadInfo();

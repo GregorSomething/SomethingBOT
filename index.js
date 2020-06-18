@@ -8,6 +8,7 @@ const fs = require('fs');
 let login = JSON.parse(fs.readFileSync('login.json'));
 let commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 let lang = JSON.parse(fs.readFileSync('lang.json'));
+let guildsData = JSON.parse(fs.readFileSync('guildsData.json'));
 // var varibles
 var language = [];
 var i = 0;
@@ -51,52 +52,23 @@ bot.on('message', async message=>{
     if(message.author.bot) return;
     if(message.channel.type == 'dm') return message.reply('For my current operations please use me in a guild.');
     var server = message.guild.id;
-    var usePrefix = remUndefined(PREFIX[server], deafultPREFIX);
-    var useAdminChat = remUndefined(adminChat[server], 0);
-    var useAnnounceChat = remUndefined(announceChat[server], 0);
-    let useLang = remUndefined(lang[language[server]], lang.en);
+    if(guildsData[server] === undefined) guildsData[`${server}`] = {"lang":"en","prefix": deafultPREFIX};
+    var usePrefix = guildsData[server].prefix
+    var useAdminChat = remUndefined(guildsData[server].adminChat, 0);
+    var useAnnounceChat = remUndefined(guildsData[server].announceChat, 0);
+    let useLang = remUndefined(lang[guildsData[server].lang], lang.en);
     let args = message.content.substring(usePrefix.length).split(" ");
     let start = message.content.substring(0, usePrefix.length);
     if(start == usePrefix) {
         if(working.includes(args[0])){
-            bot.commands.get(args[0]).execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version);
+            if (args[0] == 'define'){
+                guildsData = await bot.commands.get(args[0]).execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version, fs);
+            } else {
+                bot.commands.get(args[0]).execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version, fs);
+            }
         }
         else{
             switch(args[0]){
-                case 'prefix':
-                    if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return message.channel.send('You don´t have permissions.').then(msg => { msg.delete(10000)});
-                    if(!args[1]) return message.channel.sendMessage('Missing argument').then(msg => { msg.delete(10000)});
-                    PREFIX[server] = args[1];
-                    message.channel.sendMessage('New prefix is **' + PREFIX[server] + '** by ' + message.member.displayName)
-                    console.log('New prefix is ' + PREFIX[server]);
-                    message.delete();
-                break;
-                case 'define':
-                    if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return message.channel.send('You don´t have permissions.').then(msg => { msg.delete(10000)});
-                    if(!args[1]) return message.channel.sendMessage('Missing argument').then(msg => { msg.delete(10000)});
-                    switch (args[1]){
-                        case 'adminChat':
-                            adminChat[server] = message.channel.id
-                            message.delete();
-                            message.channel.sendMessage('This is now where i put admin stuff').then(msg => { msg.delete(30000)});
-                        break;
-                        case 'announceChat':
-                            announceChat[server] = message.channel.id
-                            message.delete();
-                            message.channel.sendMessage('This is now where i put announcments').then(msg => { msg.delete(30000)});
-                        break;
-                        case 'lang':
-                            if(args[2] == "en" || args[2] == "et"){
-                                language[server] = args[2];
-                                message.delete();
-                                message.channel.sendMessage('Language has been changed to this command with your intended language.').then(msg => { msg.delete(30000)});
-                            }
-                            else {
-                                message.channel.sendMessage('Language code wrong').then(msg => { msg.delete(30000)});
-                            }
-                        break;
-                    }
-                break;
                 case 'update':
                     if(message.member.id != 238965446026592257) break;
                     switch(args[1]){
@@ -104,6 +76,7 @@ bot.on('message', async message=>{
                             console.log(`[Uptade][Live]##################`)
                             login = JSON.parse(fs.readFileSync('login.json'));
                             lang = JSON.parse(fs.readFileSync('lang.json'));
+                            guildsData = JSON.parse(fs.readFileSync('guildsData.json'));
                             message.channel.send(`Bot update in progress from ${version} to ${login.version}`);
                             console.log(`Bot update in progress from ${version} to ${login.version}`);
                             deafultPREFIX = login.deafultPrefix;
@@ -150,7 +123,7 @@ bot.on('message', async message=>{
 })
 //other eventes
 bot.on('messageDelete', async message => {
-    bot.commands.get('event_messageDelete').execute(message, remUndefined(PREFIX[message.guild.id], deafultPREFIX));
+    bot.commands.get('event_messageDelete').execute(message, remUndefined(guildsData[message.guild.id].prefix, deafultPREFIX));
 });
 bot.on('messageUpdate', async (oldMessage, newMessage) => {
     bot.commands.get('event_messageUpdate').execute(oldMessage, newMessage);

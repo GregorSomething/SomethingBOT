@@ -3,7 +3,7 @@ const {RichEmbed } = require('discord.js');
 var cmd = require('node-cmd');
 module.exports = {
     name: 'cmd',
-    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
+    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version, fs){
         if(message.member.id != 238965446026592257) return;
         switch(args[1]){
             case 'startMine':
