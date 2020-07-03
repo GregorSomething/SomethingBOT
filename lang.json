@@ -98,6 +98,13 @@
       "perms": "GregorS",
       "permNr": "9"
     },
+    "ip": {
+      "name": "ip",
+      "description": "saadab mu ip",
+      "use": "ip",
+      "perms": "GregorS",
+      "permNr": "9"
+    },
     "words": {
       "description": "Kirjeldus",
       "use": "Kasutus",
@@ -204,6 +211,13 @@
       "name": "update",
       "description": "Updates everything but index.js",
       "use": "update",
+      "perms": "GregorS",
+      "permNr": "9"
+    },
+    "ip": {
+      "name": "ip",
+      "description": "get my ip",
+      "use": "ip",
       "perms": "GregorS",
       "permNr": "9"
     },
