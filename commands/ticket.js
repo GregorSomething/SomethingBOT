@@ -67,9 +67,6 @@ module.exports = {
        message.delete();
     }
 }
-function IntTwoChars(i) {
-    return (`0${i}`).slice(-2);
-}
 function date(date) {
     var d = new Date(date);
     if (date === undefined || date === null) d = new Date();

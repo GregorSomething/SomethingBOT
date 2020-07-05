@@ -1,4 +1,4 @@
-// @author: Gregor Suurvarik
+// @author: GregorS
 // Dependencies
 const Discord = require('discord.js')
 const {RichEmbed } = require('discord.js');
@@ -71,7 +71,7 @@ bot.on('message', async message=>{
         else{// when command is needed to bi executed from index it will do it from here
             switch(args[0]){
                 case 'update':
-                    if(message.member.id != 238965446026592257) break; // Checks if executor is GregorS
+                    if(message.member.id != "238965446026592257") break; // Checks if executor is GregorS
                     switch(args[1]){
                         case 'reload': // Reaload all bot files
                             console.log(`[Uptade][Live]##################`)
