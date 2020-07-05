@@ -4,7 +4,7 @@ module.exports = {
         //bug Ajad on kaootiliselt valed
 
         if ((message.author.bot || message.content.substring(0, usePrefix.length) == usePrefix) && message._edits.length == 0) return;
-        let content = `**MESSAGE DELETED**\n**Message content**:  ` + message.content + `\n**At channel** <#${message.channel.id}> \n**By user** <@${message.member.id}>\n**Created at** ${dateFormat(message.createdAt)}`;
+        let content = `**MESSAGE DELETED**\n**Message content**:  ` + message.content + `\n**In channel** <#${message.channel.id}> \n**By user** <@${message.member.id}>\n**Created at** ${dateFormat(message.createdAt)}`;
         if (message._edits.length != 0) {
             message._edits.forEach(edit => {
                 content = content + `\n**Edits: **` + edit.content;
