@@ -63,9 +63,9 @@ bot.on('message', async message=>{
     if(start == usePrefix) { // When it starts with correct prefix it reacts
         if(working.includes(args[0])){ // If the command is in /commands/
             if (args[0] == 'define'){ // if its define then it will wait for and updated guildsData
-                guildsData = await bot.commands.get(args[0]).execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version, fs);
+                guildsData = await bot.commands.get(args[0]).execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, login, fs);
             } else {// else it will execute command normaly
-                bot.commands.get(args[0]).execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version, fs);
+                bot.commands.get(args[0]).execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, login, fs);
             }
         }
         else{// when command is needed to bi executed from index it will do it from here

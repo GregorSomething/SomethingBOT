@@ -3,15 +3,15 @@ const {RichEmbed } = require('discord.js');
 let saada = [];
 
 const { GoogleSpreadsheet } = require('google-spreadsheet');
-// spreadsheet key is the long id in the sheets URL
-const doc = new GoogleSpreadsheet('12yRwnWMvRh3__GBBcoKrQvTgsibJHQv07cklFbDzuy8');
 // Gets data from Google Sheets
 var leht = 0;
 var loetud = '';
 module.exports = {
     name: 'drive',
-    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version, fs){
+    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, login, fs){
     async function getInfoFromGSheets(leht, message, koht, bot){
+        // spreadsheet key is the long id in the sheets URL
+        const doc = new GoogleSpreadsheet(login.drive.sheet);
         await doc.useServiceAccountAuth(require('./securiti_key.json'));
         await doc.loadInfo();
         //defineerib lehe
@@ -23,14 +23,18 @@ module.exports = {
         loetud = loetud + `**THINGS:** ${sheet.headerValues} \n`
         rows.forEach(row => {
             //Muuda sadetavad ara
-            if (loetud.length >= 1750){
+            var ridaForI = '';
+            for(i = 0; i <=sheet.headerValues.length -1; i++){
+                ridaForI = ridaForI + `${remUndefined(row[sheet.headerValues[i]], '-n-')}; `;
+            }
+            ridaForI = ridaForI + `${remUndefined(row[sheet.headerValues[sheet.headerValues.length-2]], '-n-')};\n`;
+            var lengthOfSend = loetud.length + ridaForI.length;
+            if (lengthOfSend >= 1999){
                 bot.channels.get(koht.id).send(loetud).then(msg => { msg.delete(600000)});
                 loetud = '';
+            } else {
+                loetud = loetud + ridaForI;
             }
-            for(i = 0; i <=sheet.headerValues.length -1; i++){
-                loetud = loetud + `${remUndefined(row[sheet.headerValues[i]], '-n-')}; `;
-            }
-            loetud = loetud + `${remUndefined(row[sheet.headerValues[sheet.headerValues.length-2]], '-n-')};\n`;
         });
         bot.channels.get(koht.id).send(loetud).then(msg => { msg.delete(600000)});
         bot.channels.get(koht.id).send(`**### Orderd by ${message.member.displayName} ###**`).then(msg => { msg.delete(600000)});
