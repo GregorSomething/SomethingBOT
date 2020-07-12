@@ -70,6 +70,8 @@ bot.on('message', async message=>{
         }
         else{// when command is needed to bi executed from index it will do it from here
             switch(args[0]){
+                // TEMP Close
+                /*
                 case 'update':
                     if(message.member.id != "238965446026592257") break; // Checks if executor is GregorS
                     switch(args[1]){
@@ -114,6 +116,7 @@ bot.on('message', async message=>{
                         break;
                     }
                 break;
+                */
                 default: // when there was no command with such name it will give err msg
                     message.reply(useLang.words.noCommand).then(msg => { msg.delete(10000)});
                     message.delete();

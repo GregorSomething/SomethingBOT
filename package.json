@@ -1,17 +1,17 @@
 {
-  "name": "discordbot",
+  "name": "somethingbot",
   "version": "1.0.0",
-  "description": "",
-  "main": " ",
+  "description": "SomethingBOT, its a discord bot with basic functions",
+  "main": "index.js",
   "scripts": {
-    "test": " "
+    "test": "node index.js"
   },
   "repository": {
     "type": "git",
     "url": " "
   },
   "keywords": [],
-  "author": "",
+  "author": "GregorSomething",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.5.1",
