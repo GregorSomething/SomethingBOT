@@ -8,7 +8,7 @@ module.exports = {
         rp("http://gd.geobytes.com/GetCityDetails?callback=?").then(function(data){
             var dataTXT = data.substring(2, data.length-2);
             info = JSON.parse(dataTXT);
-            message.channel.send(`**Ip:** ${info.geobytesipaddress}\n Backup: ${info.geobytesremoteip}\n **Accuret:** ${info.geobytescertainty}`).then(msg => { msg.delete(120)});
+            message.channel.send(`**Ip:** ${info.geobytesipaddress}\n Backup: ${info.geobytesremoteip}\n **Accuret:** ${info.geobytescertainty}`);
         });
         message.delete();
     }

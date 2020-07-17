@@ -1,6 +1,6 @@
 module.exports = {
     name: 'event_messageDelete',
-    execute(message, usePrefix){
+    execute(message, usePrefix, guildsData, bot){
         //bug Ajad on kaootiliselt valed
 
         if ((message.author.bot || message.content.substring(0, usePrefix.length) == usePrefix) && message._edits.length == 0) return;
@@ -11,7 +11,7 @@ module.exports = {
             });
             content = content + `\nLast edit at ${dateFormat(message.editedAt)}`
         }
-        message.channel.send(content);
+        bot.channels.get(guildsData[oldMessage.guild.id].logs.delete).send(content);
     }
 }
 

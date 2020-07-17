@@ -6,7 +6,7 @@ module.exports = {
         let guildsData = JSON.parse(fs.readFileSync('guildsData.json'));
         if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return message.channel.send('You don´t have permissions.').then(msg => { msg.delete(10000)});
         if(!args[1]) return message.channel.sendMessage('Missing argument').then(msg => { msg.delete(10000)});
-        if(guildsData[server] === undefined) guildsData[`${server}`] = {};
+        if(guildsData[server] === undefined) guildsData[`${server}`] = {"logs":{}};
         switch (args[1]){
             case 'adminChat':
                 guildsData[server].adminChat = message.channel.id
@@ -39,6 +39,22 @@ module.exports = {
                 console.log('New prefix is ' + guildsData[server].prefix);
                 message.delete();
                 fs.writeFile('guildsData.json', JSON.stringify(guildsData), 'utf8', function() {} );
+            break;
+            case 'log':
+                switch (args[2]){
+                    case 'edit':
+                        guildsData[server].logs.edit = message.channel.id;
+                        message.reply('Edit log is now defined');
+                        fs.writeFile('guildsData.json', JSON.stringify(guildsData), 'utf8', function() {} );
+                        message.delete();
+                    break;
+                    case 'delete':
+                        guildsData[server].logs.delete = message.channel.id;
+                        message.reply('Delete log is now defined');
+                        fs.writeFile('guildsData.json', JSON.stringify(guildsData), 'utf8', function() {} );
+                        message.delete();
+                    break;
+                }
             break;
         }
        //Code here

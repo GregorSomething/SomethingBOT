@@ -127,10 +127,10 @@ bot.on('message', async message=>{
 })
 //other eventes
 bot.on('messageDelete', async message => { // Wehen delete event happenas it will exixute
-    bot.commands.get('event_messageDelete').execute(message, remUndefined(guildsData[message.guild.id].prefix, deafultPREFIX));
+    bot.commands.get('event_messageDelete').execute(message, remUndefined(guildsData[message.guild.id].prefix, deafultPREFIX), guildsData, bot);
 });
 bot.on('messageUpdate', async (oldMessage, newMessage) => { // Wehen edit event happenas it will exixute
-    bot.commands.get('event_messageUpdate').execute(oldMessage, newMessage);
+    bot.commands.get('event_messageUpdate').execute(oldMessage, newMessage, guildsData, bot);
 });
 
 bot.login(token); // Logs bot into Discord using token from login.json
