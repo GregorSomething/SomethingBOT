@@ -11,7 +11,7 @@ module.exports = {
             });
             content = content + `\nLast edit at ${dateFormat(message.editedAt)}`
         }
-        if(guildsData[oldMessage.guild.id].logs.delete !== 0 | undefined | null) return;//peaks toimima teoorias
+        if([0, undefined, null, '0'].includes(guildsData[oldMessage.guild.id].logs.delete)) return;//peaks toimima teoorias
         bot.channels.get(guildsData[oldMessage.guild.id].logs.delete).send(content);
     }
 }

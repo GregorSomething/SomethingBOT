@@ -3,7 +3,7 @@ module.exports = {
     execute(oldMessage, newMessage, guildsData, bot){
         if (oldMessage.author.bot) return;
         var content = `**MESSAGE EDITED**\n**New Content: **${newMessage.content}\n**Edited at** ${dateFormat(newMessage.editedAt)}\n**Old content:** ${oldMessage.content}\n**Created at (or edited)** ${dateFormat(remUndefined(oldMessage.editedTimestamp, oldMessage.createdAt))}\n**Author: **<@${newMessage.member.id}>\nhttps://discordapp.com/channels/${newMessage.guild.id}/${newMessage.channel.id}/${newMessage.id}`
-        if(guildsData[oldMessage.guild.id].logs.edit !== 0 | undefined | null) //peaks toimima teoorias
+        if([0, undefined, null, '0'].includes(guildsData[oldMessage.guild.id].logs.edit)) //peaks toimima teoorias
         bot.channels.get(guildsData[oldMessage.guild.id].logs.edit).send(content);
     }
 }

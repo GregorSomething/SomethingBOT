@@ -37,7 +37,7 @@ bot.on('ready', () =>{ // When bot ready it will log it to console
         bot.user.setActivity(status, {type: "WATCHING"}); // sets status
     }, 5000)
 
-})
+});//reportError(err, `event/ready`)
 /*
 Vaatab kas oled admin
 if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return message.channel.send('You don´t have permissions.').then(msg => { msg.delete(10000)});
@@ -133,7 +133,7 @@ bot.on('messageUpdate', async (oldMessage, newMessage) => { // Wehen edit event 
     bot.commands.get('event_messageUpdate').execute(oldMessage, newMessage, guildsData, bot);
 });
 
-bot.login(token); // Logs bot into Discord using token from login.json
+bot.login(token).catch(err => console.log(`Viga Sisselogimisel \n##\n${err}`)); // Logs bot into Discord using token from login.json
 
 //Functons in Index.js
 function remUndefined(isUndefined, replace) { // replaces unfefined value vith something else
