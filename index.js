@@ -46,10 +46,10 @@ if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return messa
 // message handler
 bot.on('message', async message=>{
     if(message.author.bot) return; // If message author bot then its not my problem
-    // My bot uses guld as its identifyer, so it can work else where
+    // My bot uses guild as its identifyer, so it can work else where
     if(message.channel.type == 'dm') return message.reply('For my current operations please use me in a guild.');
     var server = message.guild.id; // Gets guild id
-    // If gild is new to bott then it adds it to guildsData
+    // If guild is new to bot then it adds it to guildsData
     if(guildsData[server] === undefined) guildsData[`${server}`] = {"lang":"en","prefix": deafultPREFIX};
     // Following lines read data from guildsData for guild, some remove undefined values if they appere
     var usePrefix = guildsData[server].prefix
