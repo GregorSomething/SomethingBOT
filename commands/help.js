@@ -2,14 +2,14 @@ const {RichEmbed } = require('discord.js');
 const fs = require('fs');
 var hasPerms = 0;
 const GregorS = 238965446026592257;
-var commands = ["announce", "clear", "drive", "help", "math", "prefix", "say", "ticket", "userinfo", "define"]; // Useble commands
+var commands = ["announce", "clear", "drive", "help", "math", "prefix", "say", "ticket", "userinfo", "define", "ip"]; // Useble commands
 module.exports = {
     name: 'help',
-    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
+    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, login, fs){
         const helpEmbed = new RichEmbed();
         helpEmbed.setTitle(useLang.help.cname)
         .setColor(0xFF0000)
-        .setAuthor(useLang.help.version + version)
+        .setAuthor(useLang.help.version + login.version)
         .setFooter(useLang.help.vain);
         //Perms in my system
         hasPerms = 0;

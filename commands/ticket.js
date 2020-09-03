@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const {RichEmbed } = require('discord.js');
 module.exports = {
     name: 'ticket',
-    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
+    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version, fs){
         switch(args[1]){
             case 'new':
                 if(!message.guild.roles.find(role => role.name === "Ticeter")){
@@ -33,9 +33,8 @@ module.exports = {
                     'SEND_MESSAGES': true ,
                     'READ_MESSAGE_HISTORY': true
                 });
-                let time = new Date();
                 channel.send(useLang.ticket.help)
-                channel.setTopic(`${message.member.displayName} ${IntTwoChars(time.getHours())}:${IntTwoChars(time.getMinutes())}   ${IntTwoChars(time.getDate())}/${IntTwoChars(time.getMonth() + 1)}/${IntTwoChars(time.getFullYear())}`);
+                channel.setTopic(`${message.member.displayName} ${date()}`);
                 }).catch(console.error);
             break;
             case 'add':
@@ -53,8 +52,12 @@ module.exports = {
                     let creatorData = message.channel.name.split("-");
                     var creatorID = creatorData[creatorData.length - 1];
                     let reason = message.content.substring(usePrefix.length + 13)
-                    console.log(reason);
-                    bot.users.get(creatorID).send(`${useLang.ticket.messageParts[0]} ${bot.users.get(creatorID).username} ${useLang.ticket.messageParts[1]} ${message.guild.name} ${useLang.ticket.messageParts[2]} ${message.member.displayName} ${useLang.ticket.messageParts[3]} ${reason} ${useLang.ticket.messageParts[4]}`)
+                    var textToDM = useLang.ticket.closeMessage.replace('#creator#', bot.users.get(creatorID).username)
+                    .replace('#guild#', message.guild.name)
+                    .replace('#ticeter#', message.member.displayName)
+                    .replace('#reason#', reason)
+                    .replace('#time#', date());;
+                    bot.users.get(creatorID).send(textToDM)
                     message.channel.delete();
                 }
                 else message.reply(useLang.ticket.err2);
@@ -64,6 +67,15 @@ module.exports = {
        message.delete();
     }
 }
-function IntTwoChars(i) {
-    return (`0${i}`).slice(-2);
-    }
+function date(date) {
+    var d = new Date(date);
+    if (date === undefined || date === null) d = new Date();
+    var dformat = [
+        (`0${d.getMonth()+1}`).slice(-2),
+        (`0${d.getDate()}`).slice(-2),
+        d.getFullYear()].join('/')+' '+
+       [(`0${d.getHours()}`).slice(-2),
+        (`0${d.getMinutes()}`).slice(-2),
+        (`0${d.getSeconds()}`).slice(-2)].join(':');
+    return dformat;
+}

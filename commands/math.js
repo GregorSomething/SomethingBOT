@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const {RichEmbed } = require('discord.js');
 module.exports = {
     name: 'math',
-    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version){
+    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, version, fs){
         if(!args[1]) return message.channel.sendMessage(useLang.words.missingArg).then(msg => { msg.delete(10000)});
         if(!args[2]) return message.channel.sendMessage(useLang.words.missingArg).then(msg => { msg.delete(10000)});
         if(!args[2]) return message.channel.sendMessage(useLang.words.missingArg).then(msg => { msg.delete(10000)});

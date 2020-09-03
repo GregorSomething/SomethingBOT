@@ -68,7 +68,7 @@
       "use": "ticket <new | add {Kasutaja ID} | close (Haldaja kommand) + [p6hjus]>",
       "perms": "Pole vaja",
       "permNr": "0",
-      "messageParts": ["Lugupeetud", ",", "guildist, sinu pileti sulges", "järgneva põhjusega:", ",kui teil on probleeme selle sulegmise põhjusega siis avage uus pilet."],
+      "closeMessage": "Lugupeetud #creator#, #guild# guildist, sinu pileti sulges #ticeter# järgneva põhjusega: #reason# ,kui teil on probleeme selle sulegmise põhjusega siis avage uus pilet.\n**Sulgemise aeg:** #time#",
       "help": "Palun kirjeldage probleemi, et lisada asjaga seotud isikuid tehke <prefix>ticket add <kasutaja id(parem hiire klops nende peale ja saate valida sealt selle)>",
       "err1": "Siin serveris pole loodud rolli Ticketer, palun looge selle nimelin roll.",
       "err2": "Palun veendu et sa oled pileti kanalis ja ets sul on 6ige roll."
@@ -83,7 +83,7 @@
     "define": {
       "name": "defineeri",
       "description": "Defineeri boti asju.",
-      "use": "define <adminChat | annouceChat | lang {et/en}>",
+      "use": "define <adminChat | annouceChat | lang {et/en} | prefix {prefix}>",
       "perms": "Administraator",
       "permNr": "8",
       "adminChat": "Siia ma panen Admini asjad",
@@ -98,13 +98,21 @@
       "perms": "GregorS",
       "permNr": "9"
     },
+    "ip": {
+      "name": "ip",
+      "description": "saadab mu ip",
+      "use": "ip",
+      "perms": "GregorS",
+      "permNr": "9"
+    },
     "words": {
       "description": "Kirjeldus",
       "use": "Kasutus",
       "perms": "Load",
 	    "noPerms": "Sul puuduvad vajalikud load",
       "missingArg": "Puudub vajalik argument, vaata abist",
-      "unErr": "Teadmata viga juhtus palun teheke käsk uuesti."
+      "unErr": "Teadmata viga juhtus palun teheke käsk uuesti.",
+      "noCommand":"kahju kuid sellist käsku pole, palun veendu et sa kirjutasid selle õigesti."
     }
   },
   "en": {
@@ -176,7 +184,7 @@
       "use": "ticket <new | add <mentsion user by id> | Ticeters have commnd close + [reason]>",
       "perms": "Pole vaja",
       "permNr": "0",
-      "messageParts": ["Dear", "of", "guild, your ticket was closed by", "with follownin reason:", "if you have complaints for this reason please open new ticket."],
+      "closeMessage": "Dear #creator# from #guild# guild, your ticket was closed by #ticeter# with flollowing reason: #reason# ,if you have any issues with the closure of the ticket then pease open new ticket.\n**Closing time:** #time#",
       "help": "Describe your problem, to add others to here do <prefix>ticket add <UserId (right click on that person and select copy ID)>",
       "err1": "Please do a role with a exsaxt name of Ticeter",
       "err2": "You dont have the perms or right channel"
@@ -191,7 +199,7 @@
     "define": {
       "name": "define",
       "description": "Define bot stuff.",
-      "use": "define <adminChat | annouceChat | lang {et/en}>",
+      "use": "define <adminChat | annouceChat | lang {et/en} | prefix {prefix}>",
       "perms": "Administrator",
       "permNr": "8",
       "adminChat": "This is now where I put admin stuff.",
@@ -206,13 +214,21 @@
       "perms": "GregorS",
       "permNr": "9"
     },
+    "ip": {
+      "name": "ip",
+      "description": "get my ip",
+      "use": "ip",
+      "perms": "GregorS",
+      "permNr": "9"
+    },
     "words": {
       "description": "Description",
       "use": "Use",
       "perms": "Perms",
 	    "noPerms": "You don´t have permissions",
       "missingArg": "Missing argument, chack help",
-      "unErr": "Unknown errtor happend please do this command again."
+      "unErr": "Unknown errtor happend please do this command again.",
+      "noCommand":"unfortunetly there is not such command that you tryed to use, please vive help, if needed."
     }
   }	
 }
