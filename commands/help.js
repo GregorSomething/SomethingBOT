@@ -1,28 +1,69 @@
-const {RichEmbed } = require('discord.js');
-const fs = require('fs');
-var hasPerms = 0;
-const GregorS = 238965446026592257;
-var commands = ["announce", "clear", "drive", "help", "math", "prefix", "say", "ticket", "userinfo", "define", "ip"]; // Useble commands
+const { MessageEmbed } = require('discord.js')
 module.exports = {
     name: 'help',
-    execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, login, fs){
-        const helpEmbed = new RichEmbed();
-        helpEmbed.setTitle(useLang.help.cname)
-        .setColor(0xFF0000)
-        .setAuthor(useLang.help.version + login.version)
-        .setFooter(useLang.help.vain);
-        //Perms in my system
-        hasPerms = 0;
-        if(message.member.hasPermission("ADMINISTRATOR", explicit = true)) hasPerms = 8;
+    alias: ['abi', 'commands'],
+    perms: [],
+    async execute(message, args, config, bot, sys) {
+        const lang = config.data[message.guild.id].lang
+        const embed = new MessageEmbed();
+        embed.setColor("GREEN");
+        embed.setTitle(this.help[lang].nameTranslate);
+        embed.setFooter(this.orderd[lang].replace("%user%", message.author.tag))
+        bot.commands.array().forEach(command => {
+            embed.addField(command.help[lang].nameTranslate.toUpperCase(), `**${this.nameS[lang]}:** ${command.name} | ${command.alias}\n**${this.description[lang]}:** ${command.help[lang].description}\n**${this.usage[lang]}:** ${command.help[lang].usage}\n**${this.permsS[lang]}:** ${remUndefined(command.prems, "NONE")}`)
+        })
 
-        if(message.member.id == GregorS) hasPerms = 9;
-        //end of it
-        for(i=0; i < commands.length; i++) {
-            if(useLang[commands[i]].permNr <= hasPerms) {
-                helpEmbed.addField(useLang[commands[i]].name.toUpperCase(), `**${useLang.words.description}:** ${useLang[commands[i]].description}\n**${useLang.words.use}:** ${usePrefix}${useLang[commands[i]].use}\n**${useLang.words.perms}:** ${useLang[commands[i]].perms}`)
-            }
+        message.channel.send(embed).then(msg => msg.delete({ timeout: config.delTime*10 }))
+        message.delete({ timeout: config.delTimeCmd })
+    },
+    getHelp(lang, command, err) {
+        const embed = new MessageEmbed();
+        embed.setColor("ORANGE");
+        embed.setTitle(this.help[lang].nameTranslate);
+        embed.setFooter(this.orderd[lang].replace("%user%", "System"))
+        embed.addField(command.help[lang].nameTranslate.toUpperCase(), `**${this.nameS[lang]}:** ${command.name} | ${command.alias}\n**${this.description[lang]}:** ${command.help[lang].description}\n**${this.usage[lang]}:** ${command.help[lang].usage}\n**${this.permsS[lang]}:** ${remUndefined(command.prems, "NONE")}`)
+        embed.addField(this.cmdFail[lang].toUpperCase(), err)
+        return embed
+    },
+    orderd: {
+        et: "%user%i soovil",
+        en: "%user% requested"
+    },
+    nameS: {
+        et: "Nimi ja aliased",
+        en: "Name and aliases"
+    },
+    description: {
+        et: "Kirjeldus",
+        en: "Description"
+    },
+    usage: {
+        et: "Kasutus",
+        en: "Usage"
+    },
+    permsS: {
+        et: "Premmissionid",
+        en: "Premissions"
+    },
+    help: {
+        et: {
+            usage: "%prefix%help",
+            description: "Annab käskluste abi",
+            nameTranslate: "Abi"
+        },
+        en: {
+            usage: "%prefix%help",
+            description: "Gives this embed",
+            nameTranslate: "Help"
         }
-        message.channel.sendEmbed(helpEmbed).then(msg => { msg.delete(120000)});
-       message.delete();
+    },
+    cmdFail: {
+        et: "Käsu sisestus viga",
+        en: "Commad input failiur",
     }
+}
+function remUndefined(from, relpace) {
+    if (from == undefined || from == null) {
+        return relpace
+    } else return from
 }

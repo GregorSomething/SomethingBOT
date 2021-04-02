@@ -1,0 +1,20 @@
+{
+	"activeList": [
+		"Terekest",
+		"github.com/GregorSomething/"
+	],
+	"delTime": 100000,
+	"delTimeCmd": 10000,
+	"data": {
+		"698431558410960997": {
+			"prefix": "t!",
+			"lang": "et",
+			"editLog": "778275843016359956",
+			"deleteLog": "778275843016359956"
+		},
+		"777194849413234709": {
+			"prefix": "t!",
+			"lang": "en"
+		}
+	}
+}

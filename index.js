@@ -1,146 +1,159 @@
-// @author: GregorS
-// Dependencies
+// Botile vajalikud systeemid
 const Discord = require('discord.js')
-const {RichEmbed } = require('discord.js');
-const cmd = require('node-cmd');
 const fs = require('fs');
-// Json file redins
-let login = JSON.parse(fs.readFileSync('login.json'));
-let commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js')); // searces commands from /commands/ with ending .js
-let lang = JSON.parse(fs.readFileSync('lang.json'));
-let guildsData = JSON.parse(fs.readFileSync('guildsData.json'));
-// var varibles
-var i = 0;
-// let varibles
-let working = [];
-// Shortenings
-let version = login.version;
-let activityList = login.status;
-let deafultPREFIX = login.deafultPrefix;
-const token = login.token;
-// Start
-const bot = new Discord.Client(); // client = bot e. see on discordi bot
-// Command handler stuff
-bot.commands = new Discord.Collection(); // collection for command handler
-for(const file of commandFiles){ // Adds files to it
-    let command = require(`./commands/${file}`); // takse command from commandFiles
-    bot.commands.set(command.name, command); // adds a new command to collection
-    working.push(command.name); // warible for command handlers list of worcing commands in /commands/
+var events = require('events');
+const chalk = require('chalk');
+const dbClass = require('./database.js').database
+
+// Boti andmete hoid
+let keys = JSON.parse(fs.readFileSync('keys.json')); // Salastatud info
+let config = JSON.parse(fs.readFileSync('config.json')); // Boti configuratsiooni fail
+const db = new dbClass('./database.db');
+
+// Sys enentide kogu
+const sys = new events.EventEmitter();
+
+// Command handler ile vajalik
+// Teeb uue Clienti nimega Bot
+const bot = new Discord.Client();
+// Teeb uue kollektsiooni botile milles on commandid
+bot.commands = new Discord.Collection();
+// Teeb uue kollektsiooni botile milles on slash commandid commandid
+bot.slashCommands = new Discord.Collection();
+// Eventide kogumik et hoida failid laetuna
+bot.cosEvents = new Discord.Collection();
+
+// Loeb failid mis l6ppevad .js-iga command kaustast
+let commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+let eventFiles = fs.readdirSync('./events/').filter(file => file.endsWith('.js'));
+let slashCmdFiles = fs.readdirSync('./slash_commands/').filter(file => file.endsWith('.js'));
+
+// Save Database into bots object
+bot.db = db;
+
+// T66tleb command kausta failid
+for(const file of commandFiles){ 
+    // Node.js import fail
+    let command = require(`./commands/${file}`); 
+    // Seab faili collektsiooni nime pidi
+    bot.commands.set(command.name, command); 
 }
-//Ready listnerer
-bot.on('ready', () =>{ // When bot ready it will log it to console
-    console.log(`Ready For something? of course not, here comes an ERROR!!!`);
-    setInterval(function() { // It will change activitis every 5 sec
-        if (i < activityList.length - 1) { i++;}
+
+for(const file of slashCmdFiles){ 
+    // Node.js import fail
+    let command = require(`./slash_commands/${file}`); 
+    // Seab faili collektsiooni nime pidi
+    bot.slashCommands.set(command.name, command); 
+}
+
+// Boti eventil ready
+bot.on('ready', () => {
+    // Ytleb konsooli et on valmis
+    console.log(chalk.blue.bold("[START] ") + 'Bot is ready to start working! Yay');
+    var i=0; // Vajalik hiljem
+    // Teeb invite linki ja paneb selle konsooli kui valmis
+    bot.generateInvite(['ADMINISTRATOR']).then(link => {
+        console.log(chalk.blue("[START]") + chalk.red("[INVALID]") + link)
+    });
+    // Kutsub esile selle funktsiooni iga 5000 ms tagant
+    setInterval(function() { 
+        // For loop mis on vajalik statuse muutuseks (if i++)
+        if (i < config.activeList.length - 1) { i++;}
         else { i = 0;}
-        let status = activityList[i];
-        bot.user.setActivity(status, {type: "WATCHING"}); // sets status
+        // Seab staatuse configuratsioonist saadud array activeList-i i-ndaks elemengiks
+        let status = config.activeList[i];
+        // Kuvab botile staatuse "Playing: status"
+        bot.user.setActivity(status, {type: "PLAYING"});
     }, 5000)
+    // Test kas sys event tomib
+    //TEMP ################################### 
+    bot.slashCommands.array().forEach(command => {
+        bot.api.applications(bot.user.id).guilds('698431558410960997').commands.post(command.regOpts)
+    });
+});
 
-});//reportError(err, `event/ready`)
-/*
-Vaatab kas oled admin
-if(!message.member.hasPermission("ADMINISTRATOR", explicit = true)) return message.channel.send('You don´t have permissions.').then(msg => { msg.delete(10000)});
+// Bot message event
+bot.on('message',async message => {
+    // Vaatab ka autor on bot või kanal on Direckt message, kui on siis kill
+    // TODO: Bot to DM support
+    if (message.author.bot || message.channel.type == 'dm') return;
 
-*/
-// message handler
-bot.on('message', async message=>{
-    if(message.author.bot) return; // If message author bot then its not my problem
-    // My bot uses guild as its identifyer, so it can work else where
-    if(message.channel.type == 'dm') return message.reply('For my current operations please use me in a guild.');
-    var server = message.guild.id; // Gets guild id
-    // If guild is new to bot then it adds it to guildsData
-    if(guildsData[server] === undefined) guildsData[`${server}`] = {"lang":"en","prefix": deafultPREFIX};
-    // Following lines read data from guildsData for guild, some remove undefined values if they appere
-    var usePrefix = guildsData[server].prefix
-    var useAdminChat = remUndefined(guildsData[server].adminChat, 0);
-    var useAnnounceChat = remUndefined(guildsData[server].announceChat, 0);
-    // Finds language and then reads it fom lang.json
-    let useLang = remUndefined(lang[guildsData[server].lang], lang.en);
-    // Splits message so bot can handel it more easely
-    let args = message.content.substring(usePrefix.length).split(" ");
-    let start = message.content.substring(0, usePrefix.length);
-    if(start == usePrefix) { // When it starts with correct prefix it reacts
-        if(working.includes(args[0])){ // If the command is in /commands/
-            if (args[0] == 'define'){ // if its define then it will wait for and updated guildsData
-                guildsData = await bot.commands.get(args[0]).execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, login, fs);
-            } else {// else it will execute command normaly
-                bot.commands.get(args[0]).execute(message, args, useLang, usePrefix, useAdminChat, useAnnounceChat, server, bot, login, fs);
-            }
+    // Vaatame kas andmetes on guild ja selle deafult väärtused
+    if (config.data[message.guild.id] === undefined) {
+        config.data[message.guild.id] = {"prefix":"t!","lang":"en"}
+        sys.emit('confUpdate')
+    }
+    
+
+    // Võtab argumendid sõnumi sisust
+    let args = message.content.substring(config.data[message.guild.id].prefix.length).split(" ");
+    
+    // Kui sõnum ei alga prefixiga siis kill
+    if (!message.content.startsWith(config.data[message.guild.id].prefix)) return;
+
+    // Vaatab kas boti commandides on command mille nime või aliaste nimi oleks arg0 e. käskluse alus, 
+    // kõik tehakse väikesteks tähtedeks et ei oleks caps sensitiv
+    if (bot.commands.some(command => command.name.toString().toLowerCase() == args[0].toString().toLowerCase()) 
+            || bot.commands.some(command => command.alias.includes(args[0].toString().toLowerCase()))) {
+        // kui oli command siis leiame selle commandi samal meetodil nagu ennem kontrolliseme
+        let command = await bot.commands.find(command => command.alias.includes(args[0].toString().toLowerCase()) 
+            || command.name.toString().toLowerCase() == args[0].toString().toLowerCase());
+        // Jooksutame commandi
+        command.execute(message, args, config, bot, sys);
+        console.log(chalk.green("[COMMAND] ") + chalk.white(`User ${message.member.user.username} from ${message.guild.name} executed ` + 
+                chalk.green(command.name.toUpperCase()) + "\n" + chalk.green("[COMMAND_INFO] ") + chalk.white(message.content))) // Logs Nice txt
+    }
+
+    
+});
+
+// Kui tuvastame kaltkriips kommandi siis ...
+bot.ws.on('INTERACTION_CREATE', async interaction => {
+    // ... otsime selle commandi ja viime selle läbi (/cmdl puudub multi lang support)
+    let command = await bot.slashCommands.find(command => command.name.toString().toLowerCase() == interaction.data.name.toString().toLowerCase());
+    bot.api.interactions(interaction.id, interaction.token).callback.post({
+        data: {
+            type: 4,
+            data: await APIMessage(interaction, await command.execute(interaction, bot, sys, config))
+              
         }
-        else{// when command is needed to bi executed from index it will do it from here
-            switch(args[0]){
-                // TEMP Close
-                /*
-                case 'update':
-                    if(message.member.id != "238965446026592257") break; // Checks if executor is GregorS
-                    switch(args[1]){
-                        case 'reload': // Reaload all bot files
-                            console.log(`[Uptade][Live]##################`)
-                            login = JSON.parse(fs.readFileSync('login.json'));
-                            lang = JSON.parse(fs.readFileSync('lang.json'));
-                            guildsData = JSON.parse(fs.readFileSync('guildsData.json'));
-                            message.channel.send(`Bot update in progress from ${version} to ${login.version}`);
-                            console.log(`Bot update in progress from ${version} to ${login.version}`);
-                            deafultPREFIX = login.deafultPrefix;
-                            version = login.version;
-                            activityList = login.status;
-                            commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-                            for(const file of commandFiles){
-                                let command = require(`./commands/${file}`);
-                                bot.commands.set(command.name, command);
-                                working.push(command.name);
-                                message.channel.send(`Loaded command files for ${command.name.toUpperCase()}`);
-                                console.log(`Loaded command files for ${command.name.toUpperCase()}`);
-                            }
-                            message.channel.send(`Sucsesfully updated to version ${version}! Have a nice day GregorS`);
-                            console.log(`Sucsesfully updated to version ${version}! Have a nice day GregorS`);
-                        break;
-                        case 'pull': // Pulls updates from version control, stabile branch
-                            cmd.get(
-                                'git pull origin Stabile',
-                                function(err, data, stderr){
-                                    console.log('Git pull:\n\n',data);
-                                    message.channel.send(`Git returned:\n\n ${data}\n Sucsessfull :white_check_mark:`);
-                                }
-                            );
-                        break;
-                        case 'restart': // Opens new terminal and closes old (@BUG Doesnt work on ubuntu server only WIN10)
-                            message.reply(`Now started to restart`)
-                            cmd.get('start cmd /k node .', function(err, data, stderr){});
-                            console.log(`Headaega!`);
-                            setTimeout(function(){
-                                message.channel.send(`Opend and closing old`);
-                                process.exit(1);
-                            }, 3000);  
-                        break;
-                    }
-                break;
-                */
-                default: // when there was no command with such name it will give err msg
-                    message.reply(useLang.words.noCommand).then(msg => { msg.delete(10000)});
-                    message.delete();
-                break;
-            }
-        }
-    }    
+    });
+    console.log(chalk.green("[SLASH_COMMAND] ") + chalk.white(`User ${interaction.member.user.username} from ${bot.guilds.resolve(interaction.guild_id).name} executed ` + 
+                chalk.green(interaction.data.name.toUpperCase())))
 })
-//other eventes
-bot.on('messageDelete', async message => { // Wehen delete event happenas it will exixute
-    bot.commands.get('event_messageDelete').execute(message, remUndefined(guildsData[message.guild.id].prefix, deafultPREFIX), guildsData, bot);
-});
-bot.on('messageUpdate', async (oldMessage, newMessage) => { // Wehen edit event happenas it will exixute
-    bot.commands.get('event_messageUpdate').execute(oldMessage, newMessage, guildsData, bot);
-});
 
-bot.login(token).catch(err => console.log(`Viga Sisselogimisel \n##\n${err}`)); // Logs bot into Discord using token from login.json
+// Moodulis on eksporditavad asjad
+module.exports = {
+    bot: bot,
+    sys: sys,
+    conf: config
+}
 
-//Functons in Index.js
-function remUndefined(isUndefined, replace) { // replaces unfefined value vith something else
-    if (isUndefined === undefined || isUndefined === null){
-        return replace;
-    }
-    else {
-        return isUndefined;
-    }
+// Boti sisselogimine API keskonda
+bot.login(keys.token);
+
+// Analoogia command sysiga
+// Laeme viimasene sest see on sekundaar systeem
+for(const file of eventFiles){ 
+    let event1 = require(`./events/${file}`); 
+    bot.cosEvents.set(event1.event, event1); 
+}
+
+// Kontroll event
+sys.on('ping', eventMoodul => {
+    console.log(chalk.cyan("[INFO] ") + `Ping from ${eventMoodul}`)
+})
+
+// Confi muutuse event
+sys.on('confUpdate', () => {
+    console.log(chalk.green("[UPDATE] ") + "Config Update")
+    fs.writeFile('config.json', JSON.stringify(config, null, '\t'), 'utf8', function() {} );
+})
+
+async function APIMessage(interaction, content) {
+    const apiMessage = await Discord.APIMessage.create(bot.channels.resolve(interaction.channel_id), content)
+        .resolveData()
+        .resolveFiles();
+    
+    return { ...apiMessage.data, files: apiMessage.files };
 }
