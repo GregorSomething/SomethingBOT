@@ -1,4 +1,9 @@
-# SomethingBOT_Remake
+# SomethingBOT
 Bot for my 11th grade paper
-## Important
-If you want to use bot and I haven't made a proper readme, then I am sorry
+## Download
+Requres Node.js
+```
+git clone https://github.com/GregorSomething/SomethingBOT.git
+npm install
+```
+To run this `node index.js`
