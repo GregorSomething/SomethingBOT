@@ -1,6 +1,6 @@
 {
-  "name": "somethingbot_remake",
-  "version": "1.0.0",
+  "name": "somethingbot",
+  "version": "2.0.1",
   "description": "My 11th grade paper Discord bot",
   "main": "index.js",
   "dependencies": {
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GregorSomething/SomethingBOT_Remake.git"
+    "url": "git+https://github.com/GregorSomething/SomethingBOT.git"
   },
   "keywords": [
     "discord",
@@ -28,7 +28,7 @@
   "author": "GregorSomething",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/GregorSomething/SomethingBOT_Remake/issues"
+    "url": "https://github.com/GregorSomething/SomethingBOT/issues"
   },
-  "homepage": "https://github.com/GregorSomething/SomethingBOT_Remake#readme"
+  "homepage": "https://github.com/GregorSomething/SomethingBOT#readme"
 }

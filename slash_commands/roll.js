@@ -18,7 +18,7 @@ module.exports = {
                 {
                     name: "maxNumber",
                     description: "Maximum value what can be rolled",
-                    type: 3,
+                    type: 4,
                     required: false
                 }
             ]

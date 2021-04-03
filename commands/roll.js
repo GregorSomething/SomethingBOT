@@ -29,12 +29,12 @@ module.exports = {
     },
     help: {
         et: {
-            usage: "roll [number]",
+            usage: "%prefix%roll [number]",
             description: "Veeretab sulle numbri mis ei ole suurem kui argument number",
             nameTranslate: "Täring"
         },
         en: {
-            usage: "roll [number]",
+            usage: "%prefix%roll [number]",
             description: "Rolls a number that is less that input number",
             nameTranslate: "Roll"
         }

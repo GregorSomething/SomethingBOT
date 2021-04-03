@@ -1,3 +1,4 @@
+/* Teadmata probleem Andmebaasi requestil maha võtt ei toimi */
 module.exports = {
     name: 'mute',
     alias: ['vaigista'],

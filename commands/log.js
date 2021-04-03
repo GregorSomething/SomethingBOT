@@ -54,14 +54,14 @@ module.exports = {
     },
     help: {
         et: {
-            usage: "d",
-            description: "d",
-            nameTranslate: "d"
+            usage: "%prefix%log <edit | delete>",
+            description: "Seab logi kanalis siia kanalisse",
+            nameTranslate: "Logi"
         },
         en: {
-            usage: "d",
-            description: "d",
-            nameTranslate: "d"
+            usage: "%prefix%log <edit | delete>",
+            description: "Sets log channel to here",
+            nameTranslate: "Log"
         }
     }
 }

@@ -1,3 +1,4 @@
+/* Eba vajalik moodul, kasutus puuduks */
 module.exports = {
     name: 'embed',
     alias: ['nice', 'textembed'],

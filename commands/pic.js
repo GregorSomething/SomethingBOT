@@ -1,4 +1,3 @@
-
 const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: 'pic',
@@ -26,12 +25,12 @@ module.exports = {
     },
     help: {
         et: {
-            usage: "pic [kasutaja]",
+            usage: "%prefix%pic <kasutaja>",
             description: "Annab kasutaja avatari",
             nameTranslate: "Pilt"
         },
         en: {
-            usage: "pic [member]",
+            usage: "%prefix%pic <member>",
             description: "Gives members avatar",
             nameTranslate: "Picture"
         }

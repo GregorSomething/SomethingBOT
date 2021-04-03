@@ -42,13 +42,13 @@ module.exports = {
     help: {
         et: {
             usage: "%prefix%define <prefix | lang> <newValue>",
-            description: "s",
-            nameTranslate: "s"
+            description: "Defineerib botile väärtuseid.",
+            nameTranslate: "Defineeri"
         },
         en: {
             usage: "%prefix%define <prefix | lang> <newValue>",
-            description: "s",
-            nameTranslate: "s"
+            description: "Defines bot things",
+            nameTranslate: "Define"
         }
     }
 }

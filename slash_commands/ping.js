@@ -9,4 +9,4 @@ module.exports = {
             description: "Check if bot is up and running :)"
         }
     }
-}
+} // https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoptiontype

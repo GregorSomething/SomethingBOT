@@ -1,3 +1,4 @@
+#!/bin/usr/env node
 // Botile vajalikud systeemid
 const Discord = require('discord.js')
 const fs = require('fs');

@@ -6,7 +6,7 @@ module.exports = {
         message.reply(`Pong, **Debug Message**: ${this.test.et}`, {"reply": message.author});
     },
     test: {
-        et: "<:mmLol:216154654256398347>",
+        et: "ET laguage json obj",
         en: "Huh"
     },
     test2: {
@@ -15,14 +15,14 @@ module.exports = {
     },
     help: {
         et: {
-            usage: "h",
-            description: "h",
-            nameTranslate: "h"
+            usage: "%prefix%ping",
+            description: "Pong",
+            nameTranslate: "Ping"
         },
         en: {
-            usage: "h",
-            description: "h",
-            nameTranslate: "h"
+            usage: "%prefix%ping",
+            description: "Pong",
+            nameTranslate: "Ping"
         }
     }
 }

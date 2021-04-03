@@ -40,12 +40,12 @@ module.exports = {
     },
     help: {
         et: {
-            usage: "radio [liitu | lahku]",
+            usage: "%prefix%radio [liitu | lahku]",
             description: "MyHits raadio et kuulata muusikat",
             nameTranslate: "raadio"
         },
         en: {
-            usage: "radio [join | leave]",
+            usage: "%prefix%radio [join | leave]",
             description: "MyHits radio Estonia, for music",
             nameTranslate: "radio"
         }
