@@ -9,10 +9,6 @@ module.exports = {
         et: "ET laguage json obj",
         en: "Huh"
     },
-    test2: {
-        et: "FFFF",
-        en: "GGG"
-    },
     help: {
         et: {
             usage: "%prefix%ping",

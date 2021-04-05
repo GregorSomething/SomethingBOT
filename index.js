@@ -66,10 +66,9 @@ bot.on('ready', () => {
         // Kuvab botile staatuse "Playing: status"
         bot.user.setActivity(status, {type: "PLAYING"});
     }, 5000)
-    // Test kas sys event tomib
     //TEMP ################################### 
     bot.slashCommands.array().forEach(command => {
-        bot.api.applications(bot.user.id).guilds('698431558410960997').commands.post(command.regOpts)
+        bot.api.applications(bot.user.id).guilds(config.homeGuild).commands.post(command.regOpts)
     });
 });
 
@@ -148,7 +147,8 @@ sys.on('ping', eventMoodul => {
 // Confi muutuse event
 sys.on('confUpdate', () => {
     console.log(chalk.green("[UPDATE] ") + "Config Update")
-    fs.writeFile('config.json', JSON.stringify(config, null, '\t'), 'utf8', function() {} );
+    setTimeout(() => {fs.writeFile('config.json', JSON.stringify(config, null, '\t'), 'utf8', function() {} )}, 5000)
+    //fs.writeFile('config.json', JSON.stringify(config, null, '\t'), 'utf8', function() {} );
 })
 
 async function APIMessage(interaction, content) {
