@@ -10,3 +10,4 @@ module.exports = {
         }
     }
 } // https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoptiontype
+//https://discord.com/developers/docs/interactions/slash-commands#example-walkthrough

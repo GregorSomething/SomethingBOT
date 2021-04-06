@@ -21,13 +21,12 @@ module.exports = {
         data: {
             name: "pic",
             description: "Sends user profile pic.",
-            options: [
-                {
+            options: [{
                     name: "user",
                     description: "User whos picure you want to see.",
                     type: 6,
                     required: false
                 }]
-        }
+        }  
     }
 }

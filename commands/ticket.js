@@ -29,30 +29,21 @@ module.exports = {
                 .then(msg => msg.delete({ timeout: config.delTime }))
             return
         }
-   
-   
-   
-   
-   
     },
     subCommand: {
         et: "Teadmata alam käsklus",
         en: "Unknown subcommand"
     },
-    test2: {
-        et: "FFFF",
-        en: "GGG"
-    },
     help: {
         et: {
-            usage: "h",
-            description: "h",
-            nameTranslate: "h"
+            usage: "%prefix%ticket <setup>",
+            description: "Seab üles pileti süsteemi",
+            nameTranslate: "Pilet"
         },
         en: {
-            usage: "h",
-            description: "h",
-            nameTranslate: "h"
+            usage: "%prefix%ticket <setup>",
+            description: "Setup for ticketing sys",
+            nameTranslate: "Ticket"
         }
     }
 }
