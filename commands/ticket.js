@@ -6,7 +6,7 @@ module.exports = {
     async execute(message, args, config, bot, sys) {
         switch (args[1].toLowerCase()) {
             case 'setup':
-                config.data[message.guild.id].ticket = {}
+                config.data[message.guild.id].ticket = {last_id: 0}
                 message.guild.channels.create("Tickets", { type: 'category'}).then(channel => {
                     config.data[message.guild.id].ticket.category = channel.id
                     message.guild.channels.create("info-mod-only", { 

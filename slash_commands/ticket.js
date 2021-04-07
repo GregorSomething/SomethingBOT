@@ -2,14 +2,31 @@ module.exports = {
     name: 'ticket',
     async execute(interaction, bot, sys, config) {
         let data = {
-            type: "",
-            guild: "",
-            channel: "",
-            user: "",
+            type: null,
+            guild: bot.guilds.resolve(interaction.guild_id),
+            channel: bot.channels.resolve(interaction.channel_id),
+            user: bot.users.resolve(interaction.member.user.id),
             target_user: null,
             message: null
         }
-        return data
+        switch(interaction.data.options[0].name) {
+            case 'add':
+                data.type = "add"
+                data.target_user = bot.users.resolve(interaction.data.options[0].options.find(opt => opt.name == "user").value)
+                sys.emit('ticketEvent', data)
+            return "Prossesing"
+            case 'new':
+                data.type = "new"
+                data.message = interaction.data.options[0].options.find(opt => opt.name == "reason").value
+                sys.emit('ticketEvent', data)
+            return "Prossesing"
+            case 'close':
+                data.type = "close"
+                data.message = interaction.data.options[0].options.find(opt => opt.name == "reason").value
+                sys.emit('ticketEvent', data)
+            return "Prossesing"
+        }
+        return "Jee?"
     },
     regOpts: {
         data: {
@@ -40,9 +57,9 @@ module.exports = {
                 description: "Closes ticket",
                 type: 1,
                 options: [{
-                    name: "bool",
-                    description: "Are you sure?",
-                    type: 5,
+                    name: "reason",
+                    description: "Reason for this",
+                    type: 3,
                     required: true
                 }]
             }]

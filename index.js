@@ -80,7 +80,7 @@ bot.on('message',async message => {
 
     // Vaatame kas andmetes on guild ja selle deafult väärtused
     if (config.data[message.guild.id] === undefined) {
-        config.data[message.guild.id] = {"prefix":"t!","lang":"en"}
+        config.data[message.guild.id] = {"prefix":"t!","lang":"en", "mod": [], "admin": []}
         sys.emit('confUpdate')
     }
     
