@@ -2,7 +2,7 @@
 module.exports = {
     name: 'ticket',
     alias: ['pilet', 'complaint', 'kaebus'],
-    perms: [],
+    perms: ["admin"],
     async execute(message, args, config, bot, sys) {
         switch (args[1].toLowerCase()) {
             case 'setup':

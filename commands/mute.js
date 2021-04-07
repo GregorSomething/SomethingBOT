@@ -2,7 +2,7 @@
 module.exports = {
     name: 'mute',
     alias: ['vaigista'],
-    perms: [],
+    perms: ["mod"],
     async execute(message, args, config, bot, sys) {
         if (message.mentions) {
             message.delete({ timeout: config.delTimeCmd })

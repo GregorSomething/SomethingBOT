@@ -1,7 +1,7 @@
 module.exports = {
     name: 'define',
     alias: ['def', 'defineeri'],
-    perms: [],
+    perms: ["admin"],
     async execute(message, args, config, bot, sys) {
         var lang = config.data[message.guild.id].lang
         switch(args[1]) {

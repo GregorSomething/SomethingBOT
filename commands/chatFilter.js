@@ -4,7 +4,7 @@ const sys = main.sys
 module.exports = {
     name: 'chatFilter',
     alias: ['cf', 'filter'],
-    perms: [],
+    perms: ["admin"],
     async execute(message, args, config, bot, sys) {
         if (args[1] == 'init') sys.emit('msgContainsAdd', args[2], message.guild.id)    
     },

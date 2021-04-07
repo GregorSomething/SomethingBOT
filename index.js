@@ -99,7 +99,9 @@ bot.on('message',async message => {
         let command = await bot.commands.find(command => command.alias.includes(args[0].toString().toLowerCase()) 
             || command.name.toString().toLowerCase() == args[0].toString().toLowerCase());
         // Jooksutame commandi
-        command.execute(message, args, config, bot, sys);
+        // Vaatame õigusi
+        if (hasPerms(command.perms, message)) command.execute(message, args, config, bot, sys);
+        else return message.reply("No permission for this command.")
         console.log(chalk.green("[COMMAND] ") + chalk.white(`User ${message.member.user.username} from ${message.guild.name} executed ` + 
                 chalk.green(command.name.toUpperCase()) + "\n" + chalk.green("[COMMAND_INFO] ") + chalk.white(message.content))) // Logs Nice txt
     }
@@ -126,7 +128,8 @@ bot.ws.on('INTERACTION_CREATE', async interaction => {
 module.exports = {
     bot: bot,
     sys: sys,
-    conf: config
+    conf: config,
+    hasPerms: hasPerms
 }
 
 // Boti sisselogimine API keskonda
@@ -157,4 +160,42 @@ async function APIMessage(interaction, content) {
         .resolveFiles();
     
     return { ...apiMessage.data, files: apiMessage.files };
+}
+
+const hasPerms = (checkFor, message) => {
+    let has = []
+    if (config.data[message.guild.id].mod != []) {
+        config.data[message.guild.id].mod.forEach(roleId => {
+            if (message.member.roles.cache.some(role => role.id == roleId)) {
+                if (!has.includes("mod")) {
+                    has.push("mod")
+                }
+            }
+        })
+    }
+    if (config.data[message.guild.id].admin != []) {
+        config.data[message.guild.id].admin.forEach(roleId => {
+            if (message.member.roles.cache.some(role => role.id == roleId)) {
+                if (!has.includes("admin")) {
+                    has.push("admin")
+                }
+            }
+        })
+    }
+    if (message.member.hasPermission("ADMINISTRATOR")) {
+        if (!has.includes("admin")) {
+            has.push("admin")
+        }
+    }
+    if (has.includes("admin")) has.push("mod")
+    
+    let checkHas = false 
+    checkFor.forEach(cFor => {
+        if (has.includes(cFor)) {
+            checkHas = true
+        }
+    })
+    console.log(has)
+    if (checkFor == []) return true;
+    return checkHas
 }

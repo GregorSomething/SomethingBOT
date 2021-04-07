@@ -3,7 +3,7 @@
 module.exports = {
     name: 'delete',
     alias: ['del', 'kustuta'],
-    perms: [],
+    perms: ["mod"],
     async execute(message, args, config, bot, sys) {
         if (args[1]) if(args[1] <= 100 && args[1] > 0) {
             message.channel.bulkDelete(args[1]);

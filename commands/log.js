@@ -2,7 +2,7 @@
 module.exports = {
     name: 'log',
     alias: ['logi', 'logs'],
-    perms: [],
+    perms: ["admin"],
     async execute(message, args, config, bot, sys) {
         if (config.data[message.guild.id] === undefined) {
             config.data[message.guild.id] = {}
