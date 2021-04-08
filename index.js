@@ -117,7 +117,6 @@ bot.ws.on('INTERACTION_CREATE', async interaction => {
         data: {
             type: 4,
             data: await APIMessage(interaction, await command.execute(interaction, bot, sys, config))
-              
         }
     });
     console.log(chalk.green("[SLASH_COMMAND] ") + chalk.white(`User ${interaction.member.user.username} from ${bot.guilds.resolve(interaction.guild_id).name} executed ` + 
@@ -158,7 +157,7 @@ const hasPerms = (checkFor, message) => {
             checkHas = true
         }
     })
-    if (checkFor == []) return true;
+    if (checkFor == [] || checkFor == null || checkFor == undefined || checkFor.length == 0) checkHas = true;
     return checkHas
 }
 
