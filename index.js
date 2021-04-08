@@ -124,6 +124,45 @@ bot.ws.on('INTERACTION_CREATE', async interaction => {
                 chalk.green(interaction.data.name.toUpperCase())))
 })
 
+// Pern chack module
+const hasPerms = (checkFor, message) => {
+    let has = []
+    if (config.data[message.guild.id].mod != []) {
+        config.data[message.guild.id].mod.forEach(roleId => {
+            if (message.member.roles.cache.some(role => role.id == roleId)) {
+                if (!has.includes("mod")) {
+                    has.push("mod")
+                }
+            }
+        })
+    }
+    if (config.data[message.guild.id].admin != []) {
+        config.data[message.guild.id].admin.forEach(roleId => {
+            if (message.member.roles.cache.some(role => role.id == roleId)) {
+                if (!has.includes("admin")) {
+                    has.push("admin")
+                }
+            }
+        })
+    }
+    if (message.member.hasPermission("ADMINISTRATOR")) {
+        if (!has.includes("admin")) {
+            has.push("admin")
+        }
+    }
+    if (has.includes("admin")) has.push("mod")
+    
+    let checkHas = false 
+    checkFor.forEach(cFor => {
+        if (has.includes(cFor)) {
+            checkHas = true
+        }
+    })
+    if (checkFor == []) return true;
+    return checkHas
+}
+
+
 // Moodulis on eksporditavad asjad
 module.exports = {
     bot: bot,
@@ -160,42 +199,4 @@ async function APIMessage(interaction, content) {
         .resolveFiles();
     
     return { ...apiMessage.data, files: apiMessage.files };
-}
-
-const hasPerms = (checkFor, message) => {
-    let has = []
-    if (config.data[message.guild.id].mod != []) {
-        config.data[message.guild.id].mod.forEach(roleId => {
-            if (message.member.roles.cache.some(role => role.id == roleId)) {
-                if (!has.includes("mod")) {
-                    has.push("mod")
-                }
-            }
-        })
-    }
-    if (config.data[message.guild.id].admin != []) {
-        config.data[message.guild.id].admin.forEach(roleId => {
-            if (message.member.roles.cache.some(role => role.id == roleId)) {
-                if (!has.includes("admin")) {
-                    has.push("admin")
-                }
-            }
-        })
-    }
-    if (message.member.hasPermission("ADMINISTRATOR")) {
-        if (!has.includes("admin")) {
-            has.push("admin")
-        }
-    }
-    if (has.includes("admin")) has.push("mod")
-    
-    let checkHas = false 
-    checkFor.forEach(cFor => {
-        if (has.includes(cFor)) {
-            checkHas = true
-        }
-    })
-    console.log(has)
-    if (checkFor == []) return true;
-    return checkHas
 }

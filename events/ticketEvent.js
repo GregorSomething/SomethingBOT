@@ -31,7 +31,7 @@ sys.on('ticketEvent', data => {
                 new_channel.updateOverwrite(data.guild.roles.everyone, {
                     "VIEW_CHANNEL": false
                 })
-                embed.setDescription(`${data.user.toString()} opend a new ticket\n**Reason:** ${data.message}\nChannel: ${new_channel.toString()}`)
+                embed.setDescription(`${data.user.toString()} opend a new ticket\nReason: ${data.message}\nChannel: ${new_channel.toString()}`)
                 new_channel.send(embed)
                 admin_channel.send(embed)
                 data.channel.send("Ticket was created")
@@ -45,8 +45,8 @@ sys.on('ticketEvent', data => {
             if (!(data.channel.parent.id == parent.id && data.channel.id != admin_channel.id)) return data.channel.send("**Wrong channel!**")
             if (!data.channel.name.endsWith("-ticket")) return data.channel.send("**Wrong channel!**")
             embed.setTitle("User was added")
-            embed.setColor("ORANGE")
-            embed.setDescription(`${data.user.toString()} added user ${data.target_user.toString()}\n**To ticket:** ${data.channel.toString()}`)
+            embed.setColor("#f4fc03")
+            embed.setDescription(`${data.user.toString()} added user ${data.target_user.toString()}\nTo ticket: ${data.channel.toString()}`)
             
             data.channel.updateOverwrite(data.target_user, {
                 "SEND_MESSAGES": true,
@@ -56,7 +56,29 @@ sys.on('ticketEvent', data => {
             data.channel.send(embed)
         return;
         case 'close':
-
+            if (!data.channel.parent) return data.channel.send("**Wrong channel!**")
+            if (!(data.channel.parent.id == parent.id && data.channel.id != admin_channel.id)) return data.channel.send("**Wrong channel!**")
+            if (!data.channel.name.endsWith("-ticket")) return data.channel.send("**Wrong channel!**")
+            data.member = data.guild.members.resolve(data.user.id)
+            if (main.hasPerms(["mod"], data)) {
+                embed.setTitle("Ticket closed by staff")
+                embed.setColor("#fc2c03")
+                embed.setDescription(`Staff: ${data.user.toString()} closed ticket\nReason: ${data.message}\nTicket: \`#${data.channel.name}\``)
+                admin_channel.send(embed)
+                data.channel.send(embed)
+                data.channel.send("@here")
+                setTimeout(()=> {
+                    data.channel.delete()
+                }, 60000)
+                return
+            } else {
+                embed.setTitle("Ticket solved by user")
+                embed.setColor("#fc9003")
+                embed.setDescription(`User: ${data.user.toString()} wants to close ticket\nReason: ${data.message}\nTicket: ${data.channel.toString()}`)
+                admin_channel.send(embed)
+                data.channel.send(embed)
+                return
+            }
         return;
     }
 })
