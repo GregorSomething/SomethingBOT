@@ -4,6 +4,6 @@ Bot for my 11th grade paper
 Requres Node.js
 ```
 git clone https://github.com/GregorSomething/SomethingBOT.git
-npm install
+cd SomethingBOT && npm install
 ```
 To run this `node index.js`
