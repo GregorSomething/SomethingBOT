@@ -2,6 +2,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: 'pic',
     alias: ['pilt', 'picture'],
+    perms: [],
     async execute(message, args, config, bot) {
         let Embed = new MessageEmbed();
         if (!message.mentions.users.first()) {

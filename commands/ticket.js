@@ -25,7 +25,8 @@ module.exports = {
             return
             default:
                 message.channel.send(bot.commands.find(cmd => cmd.name == 'help')
-                .getHelp(config.data[message.guild.id].lang, this, this.subCommand[config.data[message.guild.id].lang]))
+                .getHelp(config.data[message.guild.id].lang, this, 
+                    this.subCommand[config.data[message.guild.id].lang]))
                 .then(msg => msg.delete({ timeout: config.delTime }))
             return
         }

@@ -21,7 +21,8 @@ bot.on("messageDelete", async message => {
     } else return;
 
     // S6numi tootlus
-    let content = `**MESSAGE DELETED**\n**Message content**: ` + message.content + `\n**In channel** <#${message.channel.id}> \n**By user** <@${message.member.id}>\n**Created at** ${dateFormat(message.createdAt)}`;
+    let content = `**MESSAGE DELETED**\n**Message content**: ` + message.content 
+    + `\n**In channel** <#${message.channel.id}> \n**By user** <@${message.member.id}>\n**Created at** ${dateFormat(message.createdAt)}`;
     if (message._edits.length != 0) {
         message._edits.forEach(edit => {
             content = content + `\n**Edits: **` + edit.content;

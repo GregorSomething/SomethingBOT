@@ -1,6 +1,7 @@
 {
 	"activeList": [
-		"github.com/GregorSomething/SomethingBOT"
+		"Tere",
+		"¯\\_(ツ)_/¯"
 	],
 	"delTime": 100000,
 	"delTimeCmd": 10000,
@@ -8,18 +9,18 @@
 	"data": {
 		"698431558410960997": {
 			"prefix": "t!",
-			"lang": "et",
+			"lang": "en",
 			"editLog": "778275843016359956",
 			"deleteLog": "778275843016359956",
-			"ticket": {
-				"category": "828608134708592661",
-				"admin": "828608136129675304",
-				"last_id": 5
-			},
 			"mod": [],
 			"admin": [
 				"698436978101846047"
-			]
+			],
+			"ticket": {
+				"last_id": 1,
+				"category": "851032105521905684",
+				"admin": "851032106464837672"
+			}
 		},
 		"777194849413234709": {
 			"prefix": "t!",

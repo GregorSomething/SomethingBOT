@@ -1,5 +1,3 @@
-
-
 module.exports = {
     name: 'delete',
     alias: ['del', 'kustuta'],
@@ -7,7 +5,8 @@ module.exports = {
     async execute(message, args, config, bot, sys) {
         if (args[1]) if(args[1] <= 100 && args[1] > 0) {
             message.channel.bulkDelete(args[1]);
-            return message.channel.send(this[config.data[message.guild.id].lang].replyBulk.replace("%n%", args[1]).replace("%user%", message.author.toString()))
+            return message.channel.send(this[config.data[message.guild.id].lang].replyBulk
+                .replace("%n%", args[1]).replace("%user%", message.author.toString()))
         } else return message.channel.send(this[config.data[message.guild.id].lang].notValidNumber)
 
         message.delete({ timeout: 1000 })

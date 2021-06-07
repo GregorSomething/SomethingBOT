@@ -19,6 +19,7 @@ module.exports = {
                 con.play(brodcast)
                 connections[message.guild.id] = con
                 message.delete({ timeout: config.delTimeCmd })
+                message.react("✅")
                 return
             })
             return
@@ -28,6 +29,7 @@ module.exports = {
                 connections[message.guild.id].disconnect()
                 connections[message.guild.id] = false
                 message.delete({ timeout: config.delTimeCmd })
+                message.react("✅")
                 return
             }
             return
